@@ -1,0 +1,77 @@
+$primary: #1976d2;
+$secondary: #26a69a;
+$accent: #9c27b0;
+
+$dark: #1d1d1d;
+$dark-page: #121212;
+
+$positive: #21ba45;
+$negative: #e7364aab;
+$info: #31ccec;
+$warning: #f2c037;
+
+@import url("https://fonts.googleapis.com/css2?family=Slackey&display=swap");
+
+@font-face {
+  font-family: Satisfy;
+  src: url(src/fonts/Satisfy-Regular.ttf);
+}
+
+$authBtnFont: "Satisfy", cursive;
+$shadowInputs: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+  0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
+  0 22.3px 17.9px rgba(0, 0, 0, 0.072);
+
+$shadowText: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9,
+  0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1),
+  0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2),
+  0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2),
+  0 20px 20px rgba(0, 0, 0, 0.15), 0 20px 30px rgba(0, 0, 0, 0.15);
+
+@mixin authCard-style {
+  border-radius: 16px;
+  box-shadow: $shadowInputs;
+}
+
+@mixin titleAuth-style {
+  // font-family: $authBtnFont;
+
+  transform: scale(1.14);
+
+  font-family: "Slackey", cursive;
+  font-size: 4.5em;
+  // letter-spacing: 1px;
+  text-align: center;
+  cursor: pointer;
+  color: #fff;
+  -webkit-text-stroke: 0.4px rgba(36, 48, 132, 0.4);
+  text-shadow: $shadowText;
+}
+@mixin titleAuthSignUp-style {
+  font-family: "Slackey", cursive;
+  font-size: 4.4em;
+  text-align: center;
+  cursor: pointer;
+  color: #fff;
+  -webkit-text-stroke: 0.4px rgba(36, 48, 132, 0.4);
+  text-shadow: $shadowText;
+}
+
+@mixin btnAuth-style {
+  display: block;
+  border: 4px solid rgba(255, 255, 255, 0.45);
+  border-radius: 52px;
+  padding: 15px 45px !important;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-clip: padding-box;
+  position: relative;
+  color: #fff;
+  background-image: linear-gradient(
+    to right,
+    #4b6cb7 0%,
+    #182848 51%,
+    #4b6cb7 100%
+  );
+  background-size: 200% auto;
+}

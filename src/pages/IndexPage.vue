@@ -1,0 +1,4 @@
+<template>
+  <sign-in />
+</template>
+
