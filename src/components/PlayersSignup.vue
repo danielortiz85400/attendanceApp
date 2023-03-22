@@ -387,7 +387,7 @@ const submitValidate = (player) => {
           );
           forms.value.resetValidation();
           step.value = 1;
-        }, 5000); // 1 sg más al timepo del toast
+        }, 4000); // 1 sg más al timepo del toast
       }
     }
     stepper.value.next();

@@ -22,4 +22,18 @@ export const requestOptions = {
     method: "GET",
     credentials: "include",
   }),
+  delete: (toDelete) => ({
+    method: "DELETE",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify(toDelete),
+  }),
+  postSquad: (players) => ({
+    method: "POST",
+    body: JSON.stringify(players),
+    headers: {
+      "Content-type": "application/json",
+    },
+  }),
 };
