@@ -1,10 +1,10 @@
 <template>
   <q-dialog ref="dialogRef" persistent>
     <q-card
-      class="q-dialog-plugin no-scroll card-player"
+      class="q-dialog-plugin no-scroll card-content"
       style="width: 330px; border-radius: 12px"
     >
-      <v-layout>
+      <!-- <v-layout>
         <v-app-bar
           color="teal-darken-4"
           image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZhzPCfkhA9QJ-fUqq1NWuO1znid9FIuHSSVEN4z55QQ7B8aglVD2NT5UPehRVkp1WQA&usqp=CAU "
@@ -28,7 +28,14 @@
         </v-app-bar>
 
         <v-main>
-          <div class="card-title">sign up</div>
+         
+          
+          </v-main
+      ></v-layout> -->
+
+      <app-bar :onDialogCancel="onDialogCancel">
+        <template #mainContent>
+          <div class="card-content__title">sign up</div>
           <q-stepper
             v-model="step"
             ref="stepper"
@@ -338,15 +345,17 @@
                 />
               </q-stepper-navigation>
             </template>
-          </q-stepper> </v-main
-      ></v-layout>
+          </q-stepper>
+        </template>
+      </app-bar>
     </q-card>
   </q-dialog>
 </template>
 
 <script setup>
 import PasswordMeter from "vue-simple-password-meter";
-import { promiseSwal } from "../utils/UsePromiseToast";
+import { promiseSwal } from "@/utils/UsePromiseToast";
+import AppBar from "@/slotComponents/AppBar.vue";
 
 const squadStore = useSquadStore();
 const { playerSignUp } = squadStore;
@@ -387,7 +396,7 @@ const submitValidate = (player) => {
           );
           forms.value.resetValidation();
           step.value = 1;
-        }, 4000); // 1 sg más al timepo del toast
+        }, 4000);
       }
     }
     stepper.value.next();
@@ -448,7 +457,7 @@ const onScore = (payload) => (strength.value = payload.strength);
 <style scoped lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Slackey&display=swap");
 
-//Swal
+/* Toast */
 #custom-target {
   height: auto;
   width: auto;
@@ -459,10 +468,11 @@ const onScore = (payload) => (strength.value = payload.strength);
   bottom: 0 !important;
   right: 0 !important;
 }
-.card-player {
+/********** */
+.card-content {
   @include authCard-style;
 }
-.card-title {
+.card-content__title {
   @include titleAuth-style;
   font-size: 4.3em;
 }

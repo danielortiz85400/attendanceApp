@@ -4,41 +4,11 @@
       class="q-dialog-plugin shadow-1"
       style="width: 350px; border-radius: 12px"
     >
-      <v-layout>
-        <!-- https://uploadcdn.webzen.com/Files/Clara/WebzenGP/webmanager/SVR002/172update230221sub.jpg -->
-        <v-app-bar
-          color="teal-darken-4"
-          image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZhzPCfkhA9QJ-fUqq1NWuO1znid9FIuHSSVEN4z55QQ7B8aglVD2NT5UPehRVkp1WQA&usqp=CAU "
-          style="position: absolute"
-          rounded
-          class="elevation-8"
-        >
-          <v-spacer></v-spacer>
-          <q-btn
-            @click="onDialogCancel"
-            push
-            color="red-12"
-            icon="close"
-            class="q-mx-sm q-px-sm"
-          />
-          <template #image>
-            <v-img
-              gradient="to top right, rgba(100,115,201,.7), rgba(25,32,72,.7)"
-            ></v-img>
-          </template>
-        </v-app-bar>
-
-        <v-main>
+      <app-bar :onDialogCancel="onDialogCancel">
+        <template #mainContent>
           <q-card-section class="overflow-hidden">
             <div class="card-appBar__title">Opciones</div>
-            <!-- src/assets/stepper_image_2.png -->
-            <!-- style="
-                position: absolute;
-                top: 110px;
-                left: 180px;
-                opacity: 0.9;
-                transform: scaleX(-1);
-              " -->
+
             <img
               src="src/assets/backConfirmed.png "
               style="position: absolute; top: 110px; left: 20px; opacity: 0.2"
@@ -108,13 +78,15 @@
               </template>
             </q-stepper>
           </q-card-section>
-        </v-main>
-      </v-layout>
+        </template>
+      </app-bar>
     </q-card>
   </q-dialog>
 </template>
 
 <script setup>
+import AppBar from "@/slotComponents/AppBar.vue";
+
 const props = defineProps(["ctrToBeLeaders", "squadOptions"]);
 
 const step = ref(1);

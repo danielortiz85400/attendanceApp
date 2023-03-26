@@ -59,7 +59,6 @@ export const useAuth = defineStore("auth", {
           Loading.hide();
           this.router.push({ path: "/" });
         }, 3000);
-        console.log(error);
       }
     },
     logOut() {

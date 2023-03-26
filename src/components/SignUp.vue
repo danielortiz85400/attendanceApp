@@ -1,30 +1,8 @@
 <template>
   <q-dialog v-model="persistent" ref="dialogRef" persistent>
     <q-card class="signUp-card no-scroll">
-      <v-layout>
-        <v-app-bar
-          color="teal-darken-4"
-          image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZhzPCfkhA9QJ-fUqq1NWuO1znid9FIuHSSVEN4z55QQ7B8aglVD2NT5UPehRVkp1WQA&usqp=CAU "
-          style="position: absolute"
-          rounded
-          class="elevation-8"
-        >
-          <v-spacer></v-spacer>
-          <q-btn
-            @click="onDialogCancel"
-            push
-            color="red-12"
-            icon="close"
-            class="q-mx-sm q-px-sm"
-          />
-          <template #image>
-            <v-img
-              gradient="to top right, rgba(100,115,201,.7), rgba(25,32,72,.7)"
-            ></v-img>
-          </template>
-        </v-app-bar>
-
-        <v-main>
+      <app-bar :onDialogCancel="onDialogCancel">
+        <template #mainContent>
           <q-card-section class="column flex-center q-pb-none">
             <div class="signUp-card__title no-pointer-events q-mt-md">
               Sign up
@@ -214,14 +192,15 @@
           </q-form>
           <q-separator />
           <q-card-actions class="row justify-center"> <br /> </q-card-actions>
-        </v-main>
-      </v-layout>
+        </template>
+      </app-bar>
     </q-card>
   </q-dialog>
 </template>
 
 <script setup>
 import PasswordMeter from "vue-simple-password-meter";
+import AppBar from "@/slotComponents/AppBar.vue";
 
 const store = useAuth();
 const { submitting } = storeToRefs(store);

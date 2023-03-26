@@ -1,9 +1,10 @@
 <template>
   <q-page class="flex flex-center">
-    <div class="flex">
+    <div class="flex flex-center">
       <div><dash-attendance /></div>
       <div>
         <div><gauges-boxs /></div>
+
         <div class="q-mt-sm"><dash-squads /></div>
       </div>
     </div>

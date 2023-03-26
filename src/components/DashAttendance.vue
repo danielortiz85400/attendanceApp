@@ -7,35 +7,24 @@
       leave-active-class="animated fadeOut"
     >
       <!-- V-IF: Carga de componente --created-- -->
-      <v-layout v-if="characters?.length">
-        <v-app-bar
-          color="teal-darken-4"
-          image="./src/assets/backConfirmed.png"
-          density="prominent"
-          style="position: absolute"
-          rounded
-          class="elevation-8"
+      <app-bar
+        v-if="characters?.length"
+        :image="'./src/assets/backConfirmed.png'"
+        :density="'prominent'"
+        :showCancelBttn="false"
+      >
+        <template #title
+          ><div class="d-flex justify-center">
+            <q-chip
+              outline
+              color="teal-4"
+              class="glossy shadow-4 no-pointer-events q-pa-md text-white card-chip__text"
+            >
+              Lobby
+            </q-chip>
+          </div></template
         >
-          <template v-slot:image>
-            <v-img
-              gradient="to top right, rgba(100,115,201,.7), rgba(25,32,72,.7)"
-            ></v-img>
-          </template>
-
-          <v-app-bar-title>
-            <div class="d-flex justify-center">
-              <q-chip
-                outline
-                color="teal-4"
-                class="glossy shadow-4 no-pointer-events q-pa-md text-white card_chip-text"
-              >
-                Lobby
-              </q-chip>
-            </div></v-app-bar-title
-          >
-        </v-app-bar>
-
-        <v-main>
+        <template #mainContent>
           <div class="d-flex justify-center q-mt-sm">
             <div class="container-search">
               <div class="search">
@@ -84,7 +73,7 @@
           </svg>
 
           <v-item-group v-model="ctrChoise" multiple>
-            <!-- V-IF: Caso de filtrar u no encontrar jugador -->
+            <!-- V-IF: Caso de filtrar y no encontrar jugador -->
             <q-layout
               container
               class="bg-grey-ligthen-1 card-group__shadow q-ml-md"
@@ -197,8 +186,8 @@
               </transition>
             </div>
           </v-item-group>
-        </v-main>
-      </v-layout>
+        </template>
+      </app-bar>
       <AttendenceSkeleton v-else />
     </transition>
     <q-card-actions align="center">
@@ -232,6 +221,8 @@
 <script setup>
 import groupsConfig from "@/components/DashSquads.config.vue";
 import AttendenceSkeleton from "@/components/sekeltons/DashAttendence.skeleton.vue";
+import AppBar from "@/slotComponents/AppBar.vue";
+
 const squadStore = useSquadStore();
 const { characters } = storeToRefs(squadStore);
 const { createSquad } = squadStore;
@@ -434,7 +425,7 @@ const ctrSelect = (ctr) => {
   }
 }
 
-.card_chip-text {
+.card-chip__text {
   @include titleAuth-style;
   font-size: 1em;
   text-transform: capitalize;

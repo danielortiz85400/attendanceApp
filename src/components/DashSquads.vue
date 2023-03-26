@@ -1,4 +1,7 @@
 <template>
+  <div class="flex flex-center">
+    <DashMenu @handle-panels="handleCurrTab" />
+  </div>
   <q-card
     style="width: 450px; height: 75vh; border-radius: 12px"
     class="q-ma-xs overflow-hidden"
@@ -10,9 +13,8 @@
       class="text-white shadow-2 no-pointer-events"
       :breakpoint="0"
     >
-      <q-tab name="groups" class="card-tab__title">Grupos</q-tab>
+      <q-tab :name="tab" class="card-tab__title">{{ tab }}</q-tab>
     </q-tabs>
-
     <q-card-section class="q-gutter-y-sm">
       <!-- <q-page-sticky
         class="absolute-center"
@@ -41,7 +43,7 @@
         v-model="tab"
         class="bg-grey-1 rounded-borders text-white text-center"
       >
-        <q-tab-panel name="groups">
+        <q-tab-panel name="squads">
           <q-layout
             v-if="squad?.length"
             container
@@ -71,52 +73,41 @@
               >
                 <template #header="props">
                   <q-tr :props="props">
-                    <v-layout>
-                      <v-app-bar
-                        color="teal-darken-4"
-                        image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZhzPCfkhA9QJ-fUqq1NWuO1znid9FIuHSSVEN4z55QQ7B8aglVD2NT5UPehRVkp1WQA&usqp=CAU"
-                        style="position: absolute; top: 90px; z-index: 0"
-                        rounded
-                        class="elevation-8"
-                      >
-                        <template v-slot:image>
-                          <v-img
-                            gradient="to top right, rgba(100,115,201,.7), rgba(25,32,72,.7)"
-                          ></v-img>
-                        </template>
-                        <template v-slot:prepend>
-                          <q-checkbox
-                            v-model="props.selected"
-                            checked-icon="checklist"
-                            unchecked-icon="delete_sweep"
-                            :keep-color="true"
-                            :color="props.selected ? 'red' : 'white'"
-                            size="md"
-                            :disable="playersToEliminate?.length ? true : false"
-                            @click="delSquadDialog(playersToEliminate)"
-                          />
-                        </template>
-                        <v-app-bar-title
-                          ><q-tr class="flex justify-around">
-                            <q-th
-                              v-for="col in props.cols"
-                              :key="col.name"
-                              :props="props"
+                    <app-bar
+                      :showCancelBttn="false"
+                      :style="{ top: '90px', ['z-index']: '0' }"
+                    >
+                      <template #buttons>
+                        <q-checkbox
+                          v-model="props.selected"
+                          checked-icon="checklist"
+                          unchecked-icon="delete_sweep"
+                          :keep-color="true"
+                          :color="props.selected ? 'red' : 'white'"
+                          size="md"
+                          :disable="playersToEliminate?.length ? true : false"
+                          @click="delSquadDialog(playersToEliminate)"
+                        />
+                      </template>
+                      <template #title>
+                        <q-tr class="flex justify-around">
+                          <q-th
+                            v-for="col in props.cols"
+                            :key="col.name"
+                            :props="props"
+                          >
+                            <q-chip
+                              outline
+                              color="teal-4"
+                              square
+                              class="glossy shadow-4 no-pointer-events q-pa-md text-white"
                             >
-                              <q-chip
-                                outline
-                                color="teal-4"
-                                square
-                                class="glossy shadow-4 no-pointer-events q-pa-md text-white"
-                              >
-                                {{ col.label }}</q-chip
-                              >
-                            </q-th>
-                          </q-tr></v-app-bar-title
-                        >
-                      </v-app-bar>
-                      <v-main></v-main>
-                    </v-layout>
+                              {{ col.label }}</q-chip
+                            >
+                          </q-th>
+                        </q-tr>
+                      </template>
+                    </app-bar>
                   </q-tr>
                 </template>
                 <template #top>
@@ -232,6 +223,8 @@
           </q-layout>
           <DashSquadsSkeleton v-else />
         </q-tab-panel>
+
+        <q-tab-panel name="players"> playerss </q-tab-panel>
       </q-tab-panels>
     </q-card-section>
   </q-card>
@@ -240,6 +233,8 @@
 <script setup>
 import DashSquadsSkeleton from "./sekeltons/DashSquads.skeleton.vue";
 import { promiseSwal } from "@/utils/UsePromiseToast";
+import AppBar from "@/slotComponents/AppBar.vue";
+import DashMenu from "./DashMenu.vue";
 
 const squadStore = useSquadStore();
 const { squad, playersToEliminate } = storeToRefs(squadStore);
@@ -250,7 +245,8 @@ const delSquadDialog = async (squad) => {
   await promiseSwal("Eliminar?", "#target-toast", deleteSquad, squad);
 };
 
-const tab = ref("groups");
+const tab = ref("squads");
+const handleCurrTab = (data) => (tab.value = data);
 const columns = [
   {
     name: "desc",
@@ -268,19 +264,6 @@ watch(
   (length) => {
     if (length > 5) {
       playersToEliminate.value.splice(-5);
-      Swal.fire({
-        icon: "info",
-        text: "Un grupo máximo",
-        target: "#target-toast",
-        width: 260,
-        customClass: {
-          container: "position-absolute",
-        },
-        toast: true,
-        timer: 6000,
-        timerProgressBar: true,
-        position: "bottom-right",
-      });
     }
   }
 );
@@ -302,7 +285,6 @@ const tacticalIconColor = (tactical) => {
 #custom-target {
   position: relative;
 }
-
 .position-absolute {
   position: absolute !important;
 }
