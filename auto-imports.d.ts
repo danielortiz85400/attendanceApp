@@ -69,6 +69,7 @@ declare global {
   const useLink: typeof import('vue-router')['useLink']
   const useMeta: typeof import('quasar')['useMeta']
   const useOnSocket: typeof import('@/composables/useListeningSocket')['useOnSocket']
+  const usePlayers: typeof import('@/stores/players-store')['usePlayers']
   const useQuasar: typeof import('quasar')['useQuasar']
   const useRoute: typeof import('vue-router')['useRoute']
   const useRouter: typeof import('vue-router')['useRouter']

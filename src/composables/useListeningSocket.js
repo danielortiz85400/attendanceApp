@@ -1,6 +1,17 @@
 export function useOnSocket() {
   const squadStore = useSquadStore();
+  const playerStore = usePlayers();
+
   const { socket } = useSocket();
+
+  const allPlayers = () => {
+    socket.on("allSignupPlayers", (players) => {
+      console.log("Datos players recibidos", players);
+      playerStore.$patch((state) => {
+        state.allPlayers = players;
+      });
+    });
+  };
 
   const allconfirmPlayers = () => {
     socket.on("allconfirmPlayers", (players) => {
@@ -40,6 +51,7 @@ export function useOnSocket() {
   };
 
   return {
+    allPlayers,
     allconfirmPlayers,
     allSquads,
     assisConfirmation,

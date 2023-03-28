@@ -224,7 +224,7 @@
           <DashSquadsSkeleton v-else />
         </q-tab-panel>
 
-        <q-tab-panel name="players"> playerss </q-tab-panel>
+        <q-tab-panel name="players"> <dash-players /> </q-tab-panel>
       </q-tab-panels>
     </q-card-section>
   </q-card>

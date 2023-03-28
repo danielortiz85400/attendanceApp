@@ -9,7 +9,7 @@
       >
         <a @click.prevent="handleTabs(name)">
           <span class="icon"
-            ><q-icon class="cursor-pointer" :name="icon" size="md"
+            ><q-icon class="cursor-pointer" :name="icon" size="sm"
           /></span>
           <span class="text">{{ text }}</span>
         </a>
@@ -44,10 +44,8 @@ $clr: #fff;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-
-  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZhzPCfkhA9QJ-fUqq1NWuO1znid9FIuHSSVEN4z55QQ7B8aglVD2NT5UPehRVkp1WQA&usqp=CAU");
-
-  background-position: 50% 0%;
+  background-image: url("https://wallpaperaccess.com/full/2651829.jpg");
+  background-position: 10% 51%; //60% 72%
   background-repeat: no-repeat;
 
   ul {

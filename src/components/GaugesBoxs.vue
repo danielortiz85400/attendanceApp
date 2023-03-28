@@ -34,7 +34,7 @@ watchEffect(() => {
     {
       title: "Players",
       counter: Object.keys(characters.value).length,
-      icon: "fact_check",
+      icon: "assistant",
     },
     {
       title: "Grupos",

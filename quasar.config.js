@@ -102,6 +102,7 @@ module.exports = configure(function (/* ctx */) {
               {
                 "@/stores/auth-store": ["useAuth"],
                 "@/stores/squad-store": ["useSquadStore"],
+                "@/stores/players-store": ["usePlayers"],
                 "@/utils/useAuth": ["useAuthentication"],
                 "@/composables/UseSocketIO": ["useSocket"],
                 "@/composables/useListeningSocket": ["useOnSocket"],
