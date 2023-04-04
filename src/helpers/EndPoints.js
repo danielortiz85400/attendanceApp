@@ -10,5 +10,6 @@ export const url = {
   },
   player: {
     create: "http://localhost:4000/api/players/playerSignUp",
+    aPlayer: "http://localhost:4000/api/players/player",
   },
 };

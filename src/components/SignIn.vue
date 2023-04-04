@@ -101,6 +101,7 @@ const isPwd = ref(true);
 const user = reactive({
   email: "daniel@gmail.com",
   password: "D@ni3lortiz",
+  //usuario: 123|Dfasd
 });
 
 (async () => {

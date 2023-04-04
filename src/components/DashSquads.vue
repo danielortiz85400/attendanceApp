@@ -16,29 +16,6 @@
       <q-tab :name="tab" class="card-tab__title">{{ tab }}</q-tab>
     </q-tabs>
     <q-card-section class="q-gutter-y-sm">
-      <!-- <q-page-sticky
-        class="absolute-center"
-        style="top: 0; right: -30%; transform: translateY(-50%); z-index: 1"
-      >
-        <q-fab
-          glossy
-          icon="admin_panel_settings"
-          direction="down"
-          color="indigo-9"
-          class="shadow-6"
-        >
-          <q-fab-action
-            glossy
-            color="indigo-6"
-            icon="autorenew"
-            label="Disolver"
-            external-label
-            label-class="bg-grey-3 text-grey-8"
-            label-position="left"
-            @click="deleteSquad(playersToEliminate)"
-          />
-        </q-fab>
-      </q-page-sticky> -->
       <q-tab-panels
         v-model="tab"
         class="bg-grey-1 rounded-borders text-white text-center"
