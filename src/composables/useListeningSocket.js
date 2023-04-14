@@ -29,6 +29,8 @@ export function useOnSocket() {
       });
     });
   };
+
+  // EMITS DE RUTAS (API)
   const assisConfirmation = () => {
     socket.on("assisConfirmation", (newPlayers) => {
       console.log("Nuevo usuario recibido", newPlayers);

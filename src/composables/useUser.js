@@ -14,7 +14,6 @@ export const useUser = (id) => {
       });
       const result = await resp.json();
       user.value = result.resp.body;
-      console.log(user);
     });
 
     return { user };

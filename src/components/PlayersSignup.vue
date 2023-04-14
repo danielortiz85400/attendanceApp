@@ -386,8 +386,7 @@ const submitValidate = (player) => {
       const { value } = await promiseSwal(
         "crear?",
         "#form-target",
-        playerSignUp,
-        player
+        playerSignUp(player)
       );
       if (value?.result?.status === 200) {
         setTimeout(() => {
@@ -417,41 +416,6 @@ const passwordSecurity = computed(() => {
   return status;
 });
 const onScore = (payload) => (strength.value = payload.strength);
-
-// const inputs = ref([
-//   {
-//     v_model: "",
-//     label: "nick",
-//     directives: ["borderless", "dense", " no-error-icon"],
-//     classes: ["q-mt-lg"],
-//     styles: [{["border-radius"]: "15px"}],
-//     rules: [],
-//     btn: [
-//       {
-//         class: "q-mx-xs q-mb-xs shadow-4",
-//         directives:["glossy" ,"round"],
-//         style:[{ripple:false, color: "indigo-9",  size:"12px", icon:"email"}]
-
-//       },
-//     ],
-//   },
-//   {
-//     v_model: "",
-//     label: "Nombre",
-//     directives: ["borderless", "dense", " no-error-icon"],
-//     classes: ["q-mt-lg"],
-//     styles: [{["border-radius"]: "15px"}],
-//     rules: [],
-//     btn: [
-//       {
-//         class: "q-mx-xs q-mb-xs shadow-4",
-//         directives:["glossy" ,"round"],
-//         style:[{ripple:false, color: "indigo-9",  size:"12px", icon:"email"}]
-
-//       },
-//     ],
-//   },
-// ]);
 </script>
 
 <style scoped lang="scss">

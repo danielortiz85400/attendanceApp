@@ -4,10 +4,4 @@ export const usePlayers = defineStore("players", {
   state: () => ({
     allPlayers: [],
   }),
-
-  actions: {
-    increment() {
-      this.counter++;
-    },
-  },
 });

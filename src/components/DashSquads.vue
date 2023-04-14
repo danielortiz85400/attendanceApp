@@ -219,7 +219,7 @@ const { squad, playersToEliminate } = storeToRefs(squadStore);
 const { deleteSquad } = squadStore;
 
 const delSquadDialog = async (squad) => {
-  await promiseSwal("Eliminar?", "#target-toast", deleteSquad, squad);
+  await promiseSwal("Eliminar?", "#target-toast", deleteSquad(squad));
 };
 
 const tab = ref("squads");

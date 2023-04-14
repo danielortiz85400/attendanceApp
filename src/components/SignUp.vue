@@ -1,5 +1,5 @@
 <template>
-  <q-dialog v-model="persistent" ref="dialogRef" persistent>
+  <q-dialog v-model.trim="persistent" ref="dialogRef" persistent>
     <q-card class="signUp-card no-scroll">
       <app-bar :onDialogCancel="onDialogCancel">
         <template #mainContent>
@@ -21,7 +21,7 @@
             class="q-gutter-lg q-px-lg"
           >
             <q-input
-              v-model="user.email"
+              v-model.trim="user.email"
               label="E-mail"
               borderless
               dense
@@ -46,7 +46,7 @@
               </template>
             </q-input>
             <q-input
-              v-model="user.password"
+              v-model.trim="user.password"
               :type="isPwd ? 'password' : 'text'"
               label="Contraseña"
               borderless
@@ -105,7 +105,7 @@
               </div>
             </transition>
             <q-input
-              v-model="user.confirmPassword"
+              v-model.trim="user.confirmPassword"
               :type="isPwd ? 'password' : 'text'"
               label="Cofirmar contraseña"
               borderless
@@ -150,7 +150,7 @@
                         text-color="white"
                       />
                       <q-btn-toggle
-                        v-model="user.userRole"
+                        v-model.trim="user.userRole"
                         push
                         glossy
                         rounded

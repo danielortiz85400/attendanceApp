@@ -11,7 +11,7 @@
 
 import Swal from "sweetalert2";
 
-export const promiseSwal = async (text, target, fn, fnParams) => {
+export const promiseSwal = async (text, target, fn) => {
   const matchOptions = {
     width: 260,
     target,
@@ -30,7 +30,8 @@ export const promiseSwal = async (text, target, fn, fnParams) => {
     showLoaderOnConfirm: true,
     preConfirm: async () => {
       try {
-        const { result } = await fn(fnParams);
+        const { result } = await fn;
+        console.log(result);
 
         const { [result?.status]: optToast } = {
           [200]: { icon: "success", text: result?.resp?.mssg },

@@ -7,9 +7,7 @@ export async function useFetch(url, method, data, onSuccess) {
         "Content-type": "application/json",
       },
     });
-    if (!response.ok) {
-      throw new Error("Something went wrong");
-    }
+
     const result = await response.json();
 
     onSuccess ? onSuccess(result) : false;

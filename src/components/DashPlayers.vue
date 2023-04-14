@@ -54,7 +54,6 @@
 </template>
 
 <script setup>
-import { copyToClipboard } from "quasar";
 const players = usePlayers();
 const { allPlayers } = storeToRefs(players);
 </script>
