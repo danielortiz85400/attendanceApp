@@ -2,6 +2,7 @@ const roles = {
   administrador: "ADMINISTRADOR",
   usuario: "USUARIO",
 };
+
 const routes = [
   {
     path: "/",
@@ -15,7 +16,9 @@ const routes = [
       },
       {
         path: "/dash",
-        meta: { auth: [roles.administrador, roles.usuario] },
+        meta: {
+          auth: [roles.administrador, roles.usuario],
+        },
         component: () => import("pages/DashboardPage.vue"),
       },
     ],

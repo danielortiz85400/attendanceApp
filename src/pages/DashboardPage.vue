@@ -9,13 +9,14 @@
       </div>
     </div>
   </q-page>
+
   <q-btn @click="showSignUp">SIGN UP</q-btn>
   <q-btn @click="showPlayerSignup">PLAYER</q-btn>
 </template>
 
 <script setup>
 import { useQuasar } from "quasar";
-import signUp from "src/components/signUp.vue";
+import signUp from "@/components/signUp.vue";
 import playerSignup from "@/components/PlayersSignup.vue";
 
 const $q = useQuasar();

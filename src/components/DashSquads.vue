@@ -5,6 +5,7 @@
   <q-card
     style="width: 450px; height: 75vh; border-radius: 12px"
     class="q-ma-xs overflow-hidden"
+    id="target-toast"
   >
     <q-tabs
       alert
@@ -26,7 +27,6 @@
             container
             class="rounded"
             style="height: 62vh"
-            id="target-toast"
           >
             <transition-group
               appear
@@ -63,7 +63,7 @@
                           :color="props.selected ? 'red' : 'white'"
                           size="md"
                           :disable="playersToEliminate?.length ? true : false"
-                          @click="delSquadDialog(playersToEliminate)"
+                          @click.prevent="delSquadDialog(playersToEliminate)"
                         />
                       </template>
                       <template #title>
@@ -219,7 +219,11 @@ const { squad, playersToEliminate } = storeToRefs(squadStore);
 const { deleteSquad } = squadStore;
 
 const delSquadDialog = async (squad) => {
-  await promiseSwal("Eliminar?", "#target-toast", deleteSquad(squad));
+  await promiseSwal(
+    "Eliminar?",
+    "#target-toast",
+    deleteSquad.bind(null, squad)
+  );
 };
 
 const tab = ref("squads");

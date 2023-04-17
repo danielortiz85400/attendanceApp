@@ -1,31 +1,18 @@
 <template>
-  <div v-if="loaded">
-    <router-view v-slot="{ Component, route }">
-      <transition name="fade" mode="out-in">
-        <component :is="Component" :key="route.path" />
-      </transition>
-    </router-view>
-  </div>
-  <loader-app v-else />
+  <router-view v-slot="{ Component, route }">
+    <transition name="fade" mode="out-in">
+      <component :is="Component" :key="route.path" />
+    </transition>
+  </router-view>
 </template>
 
 <script setup>
-import { Loading } from "quasar";
-
 const store = useAuth();
 const router = useRouter();
 const { jwtRefresh } = store;
 const { authUser } = storeToRefs(store);
 
-let loaded = ref(false);
-
 jwtRefresh();
-
-(async () => {
-  await new Promise((r) => setTimeout(r, 1000));
-  loaded.value = true;
-  Loading.hide();
-})();
 
 //Cierre de sesión luego de 12 horas.
 watchEffect(() => {

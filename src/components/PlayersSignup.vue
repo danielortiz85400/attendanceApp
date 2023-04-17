@@ -4,35 +4,6 @@
       class="q-dialog-plugin no-scroll card-content"
       style="width: 330px; border-radius: 12px"
     >
-      <!-- <v-layout>
-        <v-app-bar
-          color="teal-darken-4"
-          image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZhzPCfkhA9QJ-fUqq1NWuO1znid9FIuHSSVEN4z55QQ7B8aglVD2NT5UPehRVkp1WQA&usqp=CAU "
-          absolute
-          rounded
-          class="elevation-8"
-        >
-          <v-spacer></v-spacer>
-          <q-btn
-            @click="onDialogCancel"
-            push
-            color="red-12"
-            icon="close"
-            class="q-mx-sm q-px-sm"
-          />
-          <template #image>
-            <v-img
-              gradient="to top right, rgba(100,115,201,.7), rgba(25,32,72,.7)"
-            ></v-img>
-          </template>
-        </v-app-bar>
-
-        <v-main>
-         
-          
-          </v-main
-      ></v-layout> -->
-
       <app-bar :onDialogCancel="onDialogCancel">
         <template #mainContent>
           <div class="card-content__title">sign up</div>
@@ -386,7 +357,7 @@ const submitValidate = (player) => {
       const { value } = await promiseSwal(
         "crear?",
         "#form-target",
-        playerSignUp(player)
+        playerSignUp.bind(null, player)
       );
       if (value?.result?.status === 200) {
         setTimeout(() => {

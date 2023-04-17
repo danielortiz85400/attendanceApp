@@ -1,5 +1,6 @@
 import { Loading } from "quasar";
 import { route } from "quasar/wrappers";
+import { ref } from "vue";
 
 import {
   createRouter,
@@ -21,7 +22,6 @@ export default route(function (/* { store, ssrContext } */) {
     routes,
     history: createHistory(process.env.VUE_ROUTER_BASE),
   });
-
   Router.beforeEach((to, from, next) => {
     const store = useAuth();
 
@@ -35,8 +35,12 @@ export default route(function (/* { store, ssrContext } */) {
     ) {
       next(false);
     } else {
+      Loading.show();
       next();
     }
+  });
+  Router.afterEach(() => {
+    Loading.hide();
   });
   return Router;
 });

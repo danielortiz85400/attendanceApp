@@ -152,6 +152,7 @@
     <UserSkeleton v-else />
   </q-card>
   <q-btn @click="confirmation">confirmar</q-btn>
+  <q-btn @click="cancelConfirm">Cancelar confirmacion</q-btn>
   <pre>{{ user?.user[0] }}</pre>
 </template>
 
@@ -168,12 +169,24 @@ const { authUser } = storeToRefs(authStore);
 const { user } = useUser(authUser.value?.user?.id);
 
 const confirmation = async () => {
-  const { result } = await promiseSwal(
+  await promiseSwal(
     "Confirmar?",
     "#target-toast",
-    useFetch(url.player.confirmed, "POST", user?.value?.user[0])
+    useFetch.bind(null, url.player.confirmation, "POST", user?.value?.user[0])
   );
-  console.log(result);
+};
+
+const cancelConfirm = async () => {
+  await promiseSwal(
+    "Cancelar?",
+    "#target-toast",
+    useFetch.bind(
+      null,
+      url.player.cancelConfirmation,
+      "POST",
+      user?.value?.user[0]
+    )
+  );
 };
 
 const columns = [

@@ -30,9 +30,8 @@ export const promiseSwal = async (text, target, fn) => {
     showLoaderOnConfirm: true,
     preConfirm: async () => {
       try {
-        const { result } = await fn;
+        const { result } = await fn();
         console.log(result);
-
         const { [result?.status]: optToast } = {
           [200]: { icon: "success", text: result?.resp?.mssg },
           [400]: { icon: "error", text: result?.resp?.mssg },
