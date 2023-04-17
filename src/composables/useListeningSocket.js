@@ -38,6 +38,15 @@ export function useOnSocket() {
     });
   };
 
+  const confirmedPlayer = () => {
+    socket.on("confirmedPlayer", (newConfirmation) => {
+      console.log("Nuevo usuario recibido", newConfirmation);
+      playerStore.$patch((state) => {
+        state.newConfirmation = newConfirmation;
+      });
+    });
+  };
+
   const socketConnect = () => {
     socket.on("connect", () => {
       console.log("Conectado al servidor");
@@ -60,5 +69,6 @@ export function useOnSocket() {
     disconnectSocket,
     socketConnect,
     socketAuth,
+    confirmedPlayer,
   };
 }

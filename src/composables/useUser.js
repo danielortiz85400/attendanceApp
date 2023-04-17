@@ -1,4 +1,5 @@
 import { url } from "../helpers/EndPoints";
+import { useOnSocket } from "../composables/useListeningSocket";
 
 export const useUser = (id) => {
   const user = ref(null);
@@ -14,6 +15,8 @@ export const useUser = (id) => {
       });
       const result = await resp.json();
       user.value = result.resp.body;
+      const { confirmedPlayer } = useOnSocket();
+      confirmedPlayer();
     });
 
     return { user };
