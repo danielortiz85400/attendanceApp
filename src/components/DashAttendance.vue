@@ -7,7 +7,7 @@
       leave-active-class="animated fadeOut"
     >
       <!-- V-IF: Carga de componente --created-- -->
-      <app-bar
+      <AppBar
         v-if="characters?.length"
         :image="'./src/assets/backConfirmed.png'"
         :density="'prominent'"
@@ -32,7 +32,7 @@
                   type="text"
                   @blur="ctrTypeFilter = ''"
                   placeholder="Buscar"
-                  v-model="ctrTypeFilter"
+                  v-model.trim="ctrTypeFilter"
                 />
                 <div class="symbol">
                   <svg class="cloud">
@@ -187,7 +187,7 @@
             </div>
           </v-item-group>
         </template>
-      </app-bar>
+      </AppBar>
       <AttendenceSkeleton v-else />
     </transition>
     <q-card-actions align="center">

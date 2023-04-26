@@ -1,7 +1,7 @@
 <template>
   <q-dialog v-model.trim="persistent" ref="dialogRef" persistent>
     <q-card class="signUp-card no-scroll">
-      <app-bar :onDialogCancel="onDialogCancel">
+      <AppBar :onDialogCancel="onDialogCancel">
         <template #mainContent>
           <q-card-section class="column flex-center q-pb-none">
             <div class="signUp-card__title no-pointer-events q-mt-md">
@@ -193,7 +193,7 @@
           <q-separator />
           <q-card-actions class="row justify-center"> <br /> </q-card-actions>
         </template>
-      </app-bar>
+      </AppBar>
     </q-card>
   </q-dialog>
 </template>

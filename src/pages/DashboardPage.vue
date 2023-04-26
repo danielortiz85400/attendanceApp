@@ -21,10 +21,12 @@ import playerSignup from "@/components/PlayersSignup.vue";
 
 const $q = useQuasar();
 
-const { disconnectSocket, ...initSockets } = useOnSocket();
+const { allconfirmPlayers, allSquads, allPlayers } = useOnSocket();
 
 onMounted(() => {
-  Object.values(initSockets).forEach((func) => func());
+  allSquads();
+  allconfirmPlayers();
+  allPlayers();
 });
 
 const showSignUp = () => {
@@ -49,8 +51,4 @@ const showPlayerSignup = () => {
       console.log("Cancel");
     });
 };
-
-onUnmounted(() => {
-  disconnectSocket();
-});
 </script>

@@ -5,4 +5,11 @@ export const usePlayers = defineStore("players", {
     allPlayers: [],
     newConfirmation: [],
   }),
+  actions: {
+    //SIGNUP PLAYERS
+    async playerSignUp(player) {
+      const { result } = await useFetch(url.player.create, "POST", player);
+      return { result };
+    },
+  },
 });

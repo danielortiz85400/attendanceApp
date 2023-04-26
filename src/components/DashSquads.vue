@@ -28,7 +28,46 @@
             class="rounded"
             style="height: 62vh"
           >
-            <transition-group
+            <TableSlot :data="squad">
+              <template #section="{ props }">
+                <AppBar
+                  :showCancelBttn="false"
+                  :style="{ top: '110px', ['z-index']: '0' }"
+                >
+                  <template #buttons>
+                    <q-checkbox
+                      v-model="props.selected"
+                      checked-icon="checklist"
+                      unchecked-icon="delete_sweep"
+                      :keep-color="true"
+                      :color="props.selected ? 'red' : 'white'"
+                      size="md"
+                      :disable="squadToEliminate?.length ? true : false"
+                      @click.prevent="delSquadDialog(squadToEliminate)"
+                    />
+                  </template>
+                  <template #title>
+                    <q-tr class="flex justify-around">
+                      <q-th
+                        v-for="col in props.cols"
+                        :key="col.name"
+                        :props="props"
+                      >
+                        <q-chip
+                          outline
+                          color="teal-4"
+                          square
+                          class="glossy shadow-4 no-pointer-events q-pa-md text-white"
+                        >
+                          {{ col.label }}</q-chip
+                        >
+                      </q-th>
+                    </q-tr>
+                  </template>
+                </AppBar>
+              </template>
+            </TableSlot>
+            <!-- <transition-group
               appear
               enter-active-class="animated fadeIn"
               leave-active-class="animated fadeOut"
@@ -41,7 +80,7 @@
                 row-key="nick"
                 selection="multiple"
                 hide-bottom
-                v-model:selected="playersToEliminate"
+                v-model:selected="squadToEliminate"
                 bordered
                 table-header-style="background-color:rgba(0,0,0,0.1);"
                 table-header-class="glossy text-white"
@@ -62,7 +101,7 @@
                           :keep-color="true"
                           :color="props.selected ? 'red' : 'white'"
                           size="md"
-                          :disable="playersToEliminate?.length ? true : false"
+                          :disable="squadToEliminate?.length ? true : false"
                           @click.prevent="delSquadDialog(playersToEliminate)"
                         />
                       </template>
@@ -185,10 +224,10 @@
                   </transition>
                 </template>
               </q-table>
-            </transition-group>
-            <div class="q-mt-md text-black">
-              Selected: {{ JSON.stringify(playersToEliminate) }}
-            </div>
+            </transition-group> -->
+            <!-- <div class="q-mt-md text-black">
+              Selected: {{ JSON.stringify(squadToEliminate) }}
+            </div> -->
             <q-page-scroller
               position="bottom-right"
               :scroll-offset="150"
@@ -201,7 +240,7 @@
           <DashSquadsSkeleton v-else />
         </q-tab-panel>
 
-        <q-tab-panel name="players"> <dash-players /> </q-tab-panel>
+        <q-tab-panel name="players"> <DashPlayers /> </q-tab-panel>
       </q-tab-panels>
     </q-card-section>
   </q-card>
@@ -209,75 +248,44 @@
 
 <script setup>
 import DashSquadsSkeleton from "./sekeltons/DashSquads.skeleton.vue";
-import { promiseSwal } from "@/utils/UsePromiseToast";
 import AppBar from "@/slotComponents/AppBar.vue";
+import TableSlot from "@/slotComponents/TableSlot.vue";
 import DashMenu from "./DashMenu.vue";
+import { promiseSwal } from "@/utils/UsePromiseToast";
 
 const squadStore = useSquadStore();
-const { squad, playersToEliminate } = storeToRefs(squadStore);
-
+const { squad, squadToEliminate } = storeToRefs(squadStore);
 const { deleteSquad } = squadStore;
 
-const delSquadDialog = async (squad) => {
+const delSquadDialog = async (delSquad) => {
   await promiseSwal(
     "Eliminar?",
     "#target-toast",
-    deleteSquad.bind(null, squad)
+    deleteSquad.bind(null, delSquad)
   );
+  squadStore.$patch((state) => {
+    state.squadToEliminate = [];
+  });
 };
 
 const tab = ref("squads");
 const handleCurrTab = (data) => (tab.value = data);
-const columns = [
-  {
-    name: "desc",
-    required: true,
-    label: "NICK",
-    align: "left",
-    field: (row) => row.nick,
-    format: (val) => `${val}`,
-  },
-  { name: "pj", align: "center", label: "CLASE", field: "ctr" },
-];
 
 watch(
-  () => playersToEliminate.value.length,
+  () => squadToEliminate.value.length,
   (length) => {
     if (length > 5) {
-      playersToEliminate.value.splice(-5);
+      squadToEliminate.value.splice(-5);
     }
   }
 );
-
-const tacticalIconColor = (tactical) => {
-  const { [tactical]: color } = {
-    ["Ataque"]: "red-12",
-    ["Defensa"]: "light-blue-6",
-    ["Sello"]: "deep-purple-6",
-    ["Auras"]: "amber-5",
-  };
-  return color;
-};
 </script>
 
 <style scoped lang="scss">
-@import url("https://fonts.googleapis.com/css2?family=Slackey&display=swap");
-
 #custom-target {
   position: relative;
 }
 .position-absolute {
   position: absolute !important;
-}
-
-.card-tab__title,
-.table-slotTop__p,
-.table-slotTop--list__chip {
-  @include titleAuth-style;
-  font-size: 2.5em;
-  font-family: "Slackey";
-  &.table-slotTop--list__chip {
-    font-size: 1.3em;
-  }
 }
 </style>

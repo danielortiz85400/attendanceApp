@@ -1,6 +1,7 @@
 export function useOnSocket() {
   const squadStore = useSquadStore();
   const playerStore = usePlayers();
+  const authStore = useAuth();
 
   const { socket } = useSocket();
 
@@ -38,11 +39,11 @@ export function useOnSocket() {
     });
   };
 
-  const confirmedPlayer = () => {
-    socket.on("confirmedPlayer", (newConfirmation) => {
-      console.log("Nuevo usuario recibido", newConfirmation);
-      playerStore.$patch((state) => {
-        state.newConfirmation = newConfirmation;
+  const userInit = () => {
+    socket.on("userInit", (userUpdate) => {
+      console.log("Confirmacion actualizada", userUpdate);
+      authStore.$patch((state) => {
+        state.authUser = userUpdate?.success;
       });
     });
   };
@@ -69,6 +70,6 @@ export function useOnSocket() {
     disconnectSocket,
     socketConnect,
     socketAuth,
-    confirmedPlayer,
+    userInit,
   };
 }

@@ -11,9 +11,8 @@
           <template #mainContent>
             <div class="card-appbar__title q-mt-sm">Jugador</div>
             <q-list
-              v-for="(
-                { nick, name, ctr, phone, name_server }, i
-              ) in newConfirmation?.user"
+              v-for="({ nick, name, ctr, phone, name_server }, i) in authUser
+                ?.player?.user"
               :key="i"
             >
               <q-item>
@@ -60,17 +59,43 @@
       id="target-toast"
       style="width: 400px; height: auto; border-radius: 12px"
     >
-      <!-- <div v-if="user?.squad[0]?.length">-->
-      <div>
-        <transition-group
+      <div v-if="authUser?.player?.squad[0]?.length">
+        <table-slot :data="authUser?.player?.squad">
+          <template #section="{ props }">
+            <AppBar
+              :showCancelBttn="false"
+              :style="{ top: '100px', ['z-index']: '0' }"
+              :image="'./src/assets/backConfirmed.png'"
+              :density="'prominent'"
+            >
+              <template #title>
+                <q-tr class="flex justify-around">
+                  <q-th
+                    v-for="col in props.cols"
+                    :key="col.name"
+                    :props="props"
+                  >
+                    <q-chip
+                      outline
+                      color="teal-4"
+                      square
+                      class="glossy shadow-4 no-pointer-events q-pa-md text-white"
+                    >
+                      {{ col.label }}</q-chip
+                    >
+                  </q-th>
+                </q-tr>
+              </template>
+            </AppBar>
+          </template>
+        </table-slot>
+        <!-- <transition-group
           appear
           enter-active-class="animated fadeIn"
           leave-active-class="animated fadeOut"
         >
-          <!-- .map((squads) =>
-              squads.sort((a, b) => b.leader - a.leader || 0) -->
           <q-table
-            v-for="(ctr, i) in newConfirmation?.squad"
+            v-for="(ctr, i) in authUser?.player?.squad"
             :key="i"
             :rows="ctr"
             :columns="columns"
@@ -209,46 +234,41 @@
               </transition>
             </template>
           </q-table>
-        </transition-group>
+        </transition-group> -->
       </div>
-      <UserSkeleton />
+      <UserSkeleton v-else />
     </q-card>
-    <q-btn @click="confirmation">confirmar</q-btn>
-    <q-btn @click="cancelConfirm">Cancelar confirmacion</q-btn>
   </q-page>
-  <pre>  {{ newConfirmation?.squad }}</pre>
-  <pre>  {{ newConfirmation?.user }}</pre>
-  <!-- <pre>{{ user?.user }}</pre> -->
-  <!-- <pre>{{ user?.squad }}</pre> -->
 </template>
 
 <script setup>
 import AppBar from "@/slotComponents/AppBar.vue";
+import TableSlot from "@/slotComponents/TableSlot.vue";
 import UserSkeleton from "@/components/sekeltons/DashSquads.skeleton.vue";
 import { url } from "@/helpers/EndPoints";
-import { useUser } from "@/composables/useUser";
 import { promiseSwal } from "@/utils/UsePromiseToast";
 import { useFetch } from "@/composables/UseFetch";
-import { usePlayers } from "../stores/players-store";
-
-const playersStore = usePlayers();
-const { newConfirmation } = storeToRefs(playersStore);
 
 const authStore = useAuth();
-
 const { authUser } = storeToRefs(authStore);
-const { user } = useUser(authUser.value?.user?.id);
+
+const { userInit } = useOnSocket();
 
 const assistance = ref(false);
+
+onMounted(() => userInit());
 
 const confirmation = async () => {
   await promiseSwal(
     "Confirmar?",
     "#target-toast",
-    useFetch.bind(null, url.player.confirmation, "POST", user?.value?.user[0])
+    useFetch.bind(
+      null,
+      url.player.confirmation,
+      "POST",
+      authUser.value?.player?.user[0]
+    )
   );
-
-  useUser(authUser.value?.user?.id);
 };
 
 const cancelConfirm = async () => {
@@ -259,17 +279,11 @@ const cancelConfirm = async () => {
       null,
       url.player.cancelConfirmation,
       "POST",
-      user?.value?.user[0]
+      authUser.value?.player?.user[0]
     )
   );
-  useUser(authUser.value?.user?.id);
 };
-watch(
-  () => user?.user?.[0]?.attendance,
-  (val) => {
-    console.log(val);
-  }
-);
+
 watch(assistance, (val) => {
   if (!val) {
     cancelConfirm();
@@ -277,43 +291,4 @@ watch(assistance, (val) => {
     confirmation();
   }
 });
-
-//TABLA
-const columns = [
-  {
-    name: "desc",
-    required: true,
-    label: "NICK",
-    align: "left",
-    field: (row) => row.nick,
-    format: (val) => `${val}`,
-  },
-  { name: "pj", align: "center", label: "CLASE", field: "ctr" },
-];
-
-const tacticalIconColor = (tactical) => {
-  const { [tactical]: color = "transparent" } = {
-    ["Ataque"]: "red-12",
-    ["Defensa"]: "light-blue-6",
-    ["Sello"]: "deep-purple-6",
-    ["Auras"]: "amber-5",
-  };
-  return color;
-};
 </script>
-
-<style scoped lang="scss">
-.card-appbar__title,
-.table-slotTop__p,
-.table-slotTop--list__chip {
-  @include titleAuth-style;
-  font-size: 2.5em;
-  font-family: "Slackey";
-  &.table-slotTop--list__chip {
-    font-size: 1.6em;
-  }
-  &.card-appbar__title {
-    font-size: 1.6em;
-  }
-}
-</style>

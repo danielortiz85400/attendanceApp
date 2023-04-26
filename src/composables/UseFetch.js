@@ -1,4 +1,4 @@
-export async function useFetch(url, method, data, onSuccess) {
+export const useFetch = async (url, method, data, onSuccess) => {
   try {
     const response = await fetch(url, {
       method,
@@ -6,13 +6,14 @@ export async function useFetch(url, method, data, onSuccess) {
       headers: {
         "Content-type": "application/json",
       },
+      credentials: "include",
     });
 
     const result = await response.json();
-
     onSuccess ? onSuccess(result) : false;
+
     return { result };
   } catch (error) {
     console.log(error);
   }
-}
+};

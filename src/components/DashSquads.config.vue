@@ -4,7 +4,7 @@
       class="q-dialog-plugin shadow-1"
       style="width: 350px; border-radius: 12px"
     >
-      <app-bar :onDialogCancel="onDialogCancel">
+      <AppBar :onDialogCancel="onDialogCancel">
         <template #mainContent>
           <q-card-section class="overflow-hidden">
             <div class="card-appBar__title">Opciones</div>
@@ -79,7 +79,7 @@
             </q-stepper>
           </q-card-section>
         </template>
-      </app-bar>
+      </AppBar>
     </q-card>
   </q-dialog>
 </template>

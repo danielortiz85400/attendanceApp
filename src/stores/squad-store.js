@@ -6,7 +6,7 @@ export const useSquadStore = defineStore("groups", {
   state: () => ({
     characters: [],
     squad: [],
-    playersToEliminate: [],
+    squadToEliminate: [],
   }),
 
   actions: {
@@ -18,15 +18,13 @@ export const useSquadStore = defineStore("groups", {
     },
 
     //DELETE SQUAD
-    async deleteSquad(players) {
-      const { result } = await useFetch(url.squad.delete, "DELETE", players);
-      this.playersToEliminate = [];
-      return { result };
-    },
-
-    //SIGNUP PLAYERS
-    async playerSignUp(player) {
-      const { result } = await useFetch(url.player.create, "POST", player);
+    async deleteSquad(squadToDelete) {
+      const { result } = await useFetch(
+        url.squad.delete,
+        "DELETE",
+        squadToDelete
+      );
+      this.squadToEliminate = [];
       return { result };
     },
   },

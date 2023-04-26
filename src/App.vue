@@ -12,7 +12,9 @@ const router = useRouter();
 const { jwtRefresh } = store;
 const { authUser } = storeToRefs(store);
 
-jwtRefresh();
+onMounted(async () => {
+  await jwtRefresh();
+});
 
 //Cierre de sesión luego de 12 horas.
 watchEffect(() => {

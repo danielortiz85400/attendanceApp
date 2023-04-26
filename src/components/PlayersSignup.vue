@@ -4,7 +4,7 @@
       class="q-dialog-plugin no-scroll card-content"
       style="width: 330px; border-radius: 12px"
     >
-      <app-bar :onDialogCancel="onDialogCancel">
+      <AppBar :onDialogCancel="onDialogCancel">
         <template #mainContent>
           <div class="card-content__title">sign up</div>
           <q-stepper
@@ -318,7 +318,7 @@
             </template>
           </q-stepper>
         </template>
-      </app-bar>
+      </AppBar>
     </q-card>
   </q-dialog>
 </template>
@@ -328,8 +328,8 @@ import PasswordMeter from "vue-simple-password-meter";
 import { promiseSwal } from "@/utils/UsePromiseToast";
 import AppBar from "@/slotComponents/AppBar.vue";
 
-const squadStore = useSquadStore();
-const { playerSignUp } = squadStore;
+const playerStore = usePlayers();
+const { playerSignUp } = playerStore;
 
 const { dialogRef, onDialogCancel } = useDialogPluginComponent();
 

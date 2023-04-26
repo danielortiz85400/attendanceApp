@@ -56,8 +56,6 @@
 </template>
 
 <script setup>
-import DashMenu from "../components/DashMenu.vue";
-
 const store = useAuth();
 const router = useRoute();
 
