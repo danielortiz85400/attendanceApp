@@ -21,11 +21,12 @@ import playerSignup from "@/components/PlayersSignup.vue";
 
 const $q = useQuasar();
 
-const { allconfirmPlayers, allSquads, allPlayers } = useOnSocket();
+const { assisConfirmation, allconfirmPlayers, allSquads, allPlayers } = useOnSocket();
 
 onMounted(() => {
   allSquads();
   allconfirmPlayers();
+  assisConfirmation()
   allPlayers();
 });
 

@@ -238,6 +238,7 @@
       </div>
       <UserSkeleton v-else />
     </q-card>
+    <pre>{{ authUser }}</pre>
   </q-page>
 </template>
 
