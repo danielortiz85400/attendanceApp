@@ -85,15 +85,11 @@
 import RecoverPassword from "@/components/RecoverPassword.vue";
 
 const { dialog } = useQuasar();
-const { login, logOut } = useAuth();
+const { login } = useAuth();
 
 const showDialog = () => {
   dialog({
     component: RecoverPassword,
-    componentProps: {
-      text: "something",
-      // ...more..props...
-    },
   });
 };
 
@@ -101,7 +97,6 @@ const isPwd = ref(true);
 const user = reactive({
   email: "daniel@gmail.com",
   password: "D@ni3lortiz",
-  //usuario: 123|Dfasd
 });
 
 (async () => {

@@ -1,95 +1,131 @@
 <template>
   <q-page class="flex flex-center">
-    <div class="column flex-center">
-      <v-card
-        width="250"
-        height="260px"
-        class="ma-2"
+    <card
+      class="flex flex-center bg-indigo-1 q-pa-md shadow-1"
+      style="border-radius: 12px"
+    >
+      <card
+        class="column flex-center q-pa-sm q-py-md bg-white"
         style="border-radius: 12px"
       >
-        <app-bar :showCancelBttn="false">
-          <template #mainContent>
-            <div class="card-appbar__title q-mt-sm">Jugador</div>
-            <q-list
-              v-for="({ nick, name, ctr, phone, name_server }, i) in authUser
-                ?.player?.user"
-              :key="i"
+        <!-- ESTADO DE ASISTENCIA -->
+        <q-card class="column flex-center no-shadow">
+          <q-btn v-if="!stateSquad" class="no-pointer-events" push>
+            <q-chip
+              square
+              color="grey-1"
+              :text-color="stateAttendance === true ? 'green-13' : 'red-5'"
+              :icon-right="stateAttendance ? 'star' : 'priority_high'"
             >
-              <q-item>
-                <q-item-section class="text-center text-justify">
-                  <q-item-label class="text-weight-bold"
-                    ><q-chip
-                      square
-                      outline
-                      class="bg-indigo-5 text-white glossy"
-                      >{{ nick }}
-                    </q-chip>
-                  </q-item-label>
-                  <q-item-label caption class="text-capitalize"
-                    >Nombre: {{ name }}</q-item-label
-                  >
-                  <q-item-label caption>Clase: {{ ctr }}</q-item-label>
-                  <q-item-label caption>Tel: {{ phone }}</q-item-label>
-                  <q-item-label caption>Server: {{ name_server }}</q-item-label>
-                </q-item-section>
-              </q-item>
-            </q-list>
-          </template>
-        </app-bar>
-      </v-card>
-      <q-card
-        class="flex flex-center q-pt-md"
-        style="border-radius: 12px; line-height: 1.2; width: 250px"
-      >
-        <p class="card-appbar__title q-ma-none">Confirmar</p>
-        <p class="text-caption text-bold">
-          <q-item-label caption
-            >Castle siege:
-            <q-toggle
-              v-model="assistance"
-              color="green-12
-              keep-color
-            "
-          /></q-item-label>
-        </p>
-      </q-card>
-    </div>
+              {{ stateAttendance ? "Confirmado" : "Sin confirmar" }}
+            </q-chip>
+          </q-btn>
+          <q-btn v-if="stateSquad" class="no-pointer-events" push>
+            <q-chip
+              size="md"
+              square
+              color="grey-1"
+              :text-color="stateSquad ? 'green-13' : 'red-5'"
+              icon-right="star"
+            >
+              {{ stateSquad ? "En grupo " : "Sin grupo aún" }}
+            </q-chip>
+          </q-btn>
+        </q-card>
+        <!-- INFORMACIÓN DE JUGADOR -->
+        <v-card
+          width="250"
+          height="260px"
+          class="ma-2 no-pointer-events"
+          style="border-radius: 12px"
+        >
+          <app-bar :showCancelBttn="false">
+            <template #mainContent>
+              <div class="card-appbar__title q-mt-sm">PLAYER</div>
+              <q-list
+                v-for="({ nick, name, ctr, phone, name_server }, i) in authUser
+                  ?.player?.user"
+                :key="i"
+              >
+                <q-item>
+                  <q-item-section class="text-center text-justify">
+                    <q-item-label class="text-weight-bold"
+                      ><q-btn push class="bg-indigo-5 text-white glossy"
+                        >{{ nick }}
+                      </q-btn>
+                    </q-item-label>
+                    <q-item-label caption class="text-capitalize"
+                      >Nombre: {{ name }}</q-item-label
+                    >
+                    <q-item-label caption>Clase: {{ ctr }}</q-item-label>
+                    <q-item-label caption>Tel: {{ phone }}</q-item-label>
+                    <q-item-label caption
+                      >Server: {{ name_server }}</q-item-label
+                    >
+                  </q-item-section>
+                </q-item>
+              </q-list>
+            </template>
+          </app-bar>
+        </v-card>
 
-    <q-card
-      id="target-toast"
-      style="width: 400px; height: auto; border-radius: 12px"
-    >
-      <div v-if="authUser?.player?.squad[0]?.length">
-        <table-slot :data="authUser?.player?.squad">
-          <template #section="{ props }">
-            <AppBar
-              :showCancelBttn="false"
-              :style="{ top: '100px', ['z-index']: '0' }"
-              :image="'./src/assets/backConfirmed.png'"
-              :density="'prominent'"
-            >
-              <template #title>
-                <q-tr class="flex justify-around">
-                  <q-th
-                    v-for="col in props.cols"
-                    :key="col.name"
-                    :props="props"
-                  >
-                    <q-chip
-                      outline
-                      color="teal-4"
-                      square
-                      class="glossy shadow-4 no-pointer-events q-pa-md text-white"
+        <!-- ASISTENCIA -->
+        <q-card
+          class="flex flex-center q-pt-md"
+          style="border-radius: 12px; line-height: 1.2; width: 250px"
+        >
+          <p class="card-appbar__title q-ma-none no-pointer-events">ASISTIR</p>
+          <p class="text-caption text-bold">
+            <q-item-label caption
+              >Castle siege:
+              <q-toggle
+                toggle-indeterminate
+                v-model="assistance"
+                color="green-12"
+                keep-color
+                size="lg"
+            /></q-item-label>
+          </p>
+        </q-card>
+      </card>
+
+      <!-- GRUPO/SQUAD -->
+      <q-card
+        class="no-shadow"
+        id="target-toast"
+        style="width: 400px; height: auto; border-radius: 12px"
+      >
+        <div v-if="authUser?.player?.squad[0]?.length">
+          <table-slot :data="authUser?.player?.squad">
+            <template #section="{ props }">
+              <AppBar
+                :showCancelBttn="false"
+                :style="{ top: '100px', ['z-index']: '0' }"
+                :image="'./src/assets/backConfirmed.png'"
+                :density="'prominent'"
+              >
+                <template #title>
+                  <q-tr class="flex justify-around">
+                    <q-th
+                      v-for="col in props.cols"
+                      :key="col.name"
+                      :props="props"
                     >
-                      {{ col.label }}</q-chip
-                    >
-                  </q-th>
-                </q-tr>
-              </template>
-            </AppBar>
-          </template>
-        </table-slot>
-        <!-- <transition-group
+                      <q-chip
+                        outline
+                        color="teal-4"
+                        square
+                        class="glossy shadow-4 no-pointer-events q-pa-md text-white"
+                      >
+                        {{ col.label }}</q-chip
+                      >
+                    </q-th>
+                  </q-tr>
+                </template>
+              </AppBar>
+            </template>
+          </table-slot>
+          <!-- <transition-group
           appear
           enter-active-class="animated fadeIn"
           leave-active-class="animated fadeOut"
@@ -235,10 +271,11 @@
             </template>
           </q-table>
         </transition-group> -->
-      </div>
-      <UserSkeleton v-else />
-    </q-card>
-    <pre>{{ authUser }}</pre>
+        </div>
+        <UserSkeleton v-else />
+      </q-card>
+    </card>
+    <!-- <pre>{{ authUser }}</pre> -->
   </q-page>
 </template>
 
@@ -255,41 +292,44 @@ const { authUser } = storeToRefs(authStore);
 
 const { userInit } = useOnSocket();
 
-const assistance = ref(false);
+const assistance = ref(null);
 
 onMounted(() => userInit());
 
-const confirmation = async () => {
-  await promiseSwal(
-    "Confirmar?",
-    "#target-toast",
-    useFetch.bind(
-      null,
-      url.player.confirmation,
-      "POST",
-      authUser.value?.player?.user[0]
-    )
-  );
-};
+const stateAttendance = computed(() => {
+  return authUser.value?.player?.user[0].attendance === 1;
+});
 
-const cancelConfirm = async () => {
-  await promiseSwal(
-    "Cancelar?",
-    "#target-toast",
-    useFetch.bind(
-      null,
-      url.player.cancelConfirmation,
-      "POST",
-      authUser.value?.player?.user[0]
-    )
-  );
-};
+const stateSquad = computed(() => {
+  return Object.entries(authUser.value?.player?.squad[0])?.length > 0;
+});
 
-watch(assistance, (val) => {
-  if (!val) {
-    cancelConfirm();
-  } else {
-    confirmation();
+watch(assistance, async (newAssis) => {
+  if (newAssis === false) {
+    await promiseSwal(
+      "Cancelar?",
+      "#target-toast",
+      useFetch.bind(
+        null,
+        url.player.cancelConfirmation,
+        "POST",
+        authUser.value?.player?.user[0]
+      )
+    );
+
+    assistance.value = null;
+  } else if (newAssis === true) {
+    await promiseSwal(
+      "Confirmar?",
+      "#target-toast",
+      useFetch.bind(
+        null,
+        url.player.confirmation,
+        "POST",
+        authUser.value?.player?.user[0]
+      )
+    );
+    assistance.value = null;
   }
 });
 </script>

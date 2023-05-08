@@ -327,9 +327,10 @@
 import PasswordMeter from "vue-simple-password-meter";
 import { promiseSwal } from "@/utils/UsePromiseToast";
 import AppBar from "@/slotComponents/AppBar.vue";
-
+import { url } from "@/helpers/EndPoints";
+import { useFetch } from "@/composables/UseFetch";
 const playerStore = usePlayers();
-const { playerSignUp } = playerStore;
+// const { playerSignUp } = playerStore;
 
 const { dialogRef, onDialogCancel } = useDialogPluginComponent();
 
@@ -357,7 +358,8 @@ const submitValidate = (player) => {
       const { value } = await promiseSwal(
         "crear?",
         "#form-target",
-        playerSignUp.bind(null, player)
+        useFetch.bind(null, url.player.create, "POST", player)
+        // playerSignUp.bind(null, player)
       );
       if (value?.result?.status === 200) {
         setTimeout(() => {

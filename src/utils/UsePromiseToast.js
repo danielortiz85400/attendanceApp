@@ -12,6 +12,7 @@
 import Swal from "sweetalert2";
 
 export const promiseSwal = async (text, target, fn) => {
+  let resultResp = {};
   const matchOptions = {
     width: 260,
     target,
@@ -31,10 +32,12 @@ export const promiseSwal = async (text, target, fn) => {
     preConfirm: async () => {
       try {
         const { result } = await fn();
-        console.log(result);
+        resultResp = result;
+
         const { [result?.status]: optToast } = {
           [200]: { icon: "success", text: result?.resp?.mssg },
           [400]: { icon: "error", text: result?.resp?.mssg },
+          [422]: { icon: "error", text: result?.resp?.mssg },
         };
 
         Swal.fire({
@@ -44,7 +47,6 @@ export const promiseSwal = async (text, target, fn) => {
           timer: 4000,
           timerProgressBar: true,
         });
-        return { result };
       } catch (error) {
         console.log(error);
       }
