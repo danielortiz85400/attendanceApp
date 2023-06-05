@@ -24,18 +24,18 @@
             </v-row> </template
         ></v-img>
       </template>
-      <template #prepend><slot name="buttons"></slot></template>
       <v-app-bar-title><slot name="title"></slot> </v-app-bar-title>
-      <!--<<v-spacer>>: Evita usar: v-slot:append para agregar el botón-->
-      <v-spacer v-if="showCancelBttn"></v-spacer>
-      <q-btn
-        v-if="showCancelBttn"
-        @click="props.onDialogCancel"
-        push
-        color="red-12"
-        icon="close"
-        class="q-mx-sm q-px-sm"
-      />
+
+      <template #append v-if="showCancelBttn">
+        <q-btn
+          v-if="showCancelBttn"
+          @click="props.onDialogCancel"
+          push
+          color="red-12"
+          icon="close"
+          class="q-mx-sm q-px-sm"
+        />
+      </template>
     </v-app-bar>
 
     <v-main><slot name="mainContent"></slot> </v-main
@@ -60,6 +60,7 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+
   style: {
     type: Object,
     default: () => {},

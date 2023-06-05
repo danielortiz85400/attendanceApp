@@ -329,8 +329,6 @@ import { promiseSwal } from "@/utils/UsePromiseToast";
 import AppBar from "@/slotComponents/AppBar.vue";
 import { url } from "@/helpers/EndPoints";
 import { useFetch } from "@/composables/UseFetch";
-const playerStore = usePlayers();
-// const { playerSignUp } = playerStore;
 
 const { dialogRef, onDialogCancel } = useDialogPluginComponent();
 
@@ -359,7 +357,6 @@ const submitValidate = (player) => {
         "crear?",
         "#form-target",
         useFetch.bind(null, url.player.create, "POST", player)
-        // playerSignUp.bind(null, player)
       );
       if (value?.result?.status === 200) {
         setTimeout(() => {

@@ -115,6 +115,7 @@ const options = reactive({
 
   Líder: [...props.ctrToBeLeaders],
 });
+const { dialogRef, onDialogOK, onDialogCancel } = useDialogPluginComponent();
 
 watch(
   () => vml_optGroup.value,
@@ -125,8 +126,6 @@ watch(
     leaderStep.value = val;
   }
 );
-
-const { dialogRef, onDialogOK, onDialogCancel } = useDialogPluginComponent();
 
 const squadOptionsReactive = ref(props.squadOptions);
 const onOKClick = () => {
