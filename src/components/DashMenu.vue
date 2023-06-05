@@ -5,13 +5,29 @@
         v-for="({ icon, text, name }, i) in menu"
         :key="i"
         :class="{ active: activeIndex === i }"
-        @click="() => (activeIndex = i)"
       >
-        <a @click.prevent="handleTabs(name)">
+        <a>
           <span class="icon"
-            ><q-icon class="cursor-pointer" :name="icon" size="sm"
+            ><q-icon
+              class="cursor-pointer"
+              :name="icon"
+              size="sm"
+              @click="
+                () => {
+                  (activeIndex = i), handleTabs(name);
+                }
+              "
+              :class="{ active: activeIndex === i }"
           /></span>
-          <span class="text">{{ text }}</span>
+          <span
+            class="text"
+            @click="
+              () => {
+                (activeIndex = i), handleTabs(name);
+              }
+            "
+            >{{ text }}</span
+          >
         </a>
       </li>
       <div class="indicator glossy"></div>
@@ -22,8 +38,8 @@
 <script setup>
 const activeIndex = ref(0);
 const menu = ref([
-  { icon: "group", text: "Grupos", name: "squads" },
-  { icon: "account_box", text: "Jugadores", name: "players" },
+  { icon: "group", text: "Groups", name: "squads" },
+  { icon: "account_box", text: "Players", name: "players" },
 ]);
 
 const emits = defineEmits(["handle-panels"]);
@@ -63,9 +79,10 @@ $clr: #fff;
         display: block;
         line-height: 75px;
         font-size: 1.7em;
-        transition: 0.5s;
+        transition: 0.4s;
         color: $clr;
         text-align: center;
+        cursor: default;
       }
 
       &.active {
@@ -76,6 +93,7 @@ $clr: #fff;
         .text {
           opacity: 1;
           transform: translateY(10px);
+          cursor: default;
         }
       }
 
@@ -87,8 +105,8 @@ $clr: #fff;
         font-weight: bold;
         font-size: 0.75em;
         letter-spacing: 0.05em;
-        cursor: default;
-        transition: 0.5s;
+        cursor: pointer;
+        transition: 0.4s;
         opacity: 0;
       }
     }
@@ -102,7 +120,7 @@ $clr: #fff;
     background-color: #3f50b4;
     border-radius: 50px;
     border: 6px solid $clr;
-    transition: 0.5s;
+    transition: 0.4s;
     &::before {
       content: "";
       position: absolute;

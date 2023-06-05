@@ -37,7 +37,7 @@ watchEffect(() => {
       icon: "assistant",
     },
     {
-      title: "Grupos",
+      title: "Groups",
       counter: Object.keys(squad.value).length,
       icon: "groups_3",
     },

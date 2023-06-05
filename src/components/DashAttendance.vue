@@ -24,6 +24,7 @@
             </q-chip>
             <div class="flex q-mt-sm">
               <q-btn
+                class="no-pointer-events"
                 :ripple="false"
                 size="sm"
                 icon="group_add"
