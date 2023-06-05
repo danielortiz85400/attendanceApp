@@ -6,7 +6,9 @@
       leave-active-class="animated fadeOut"
     >
       <q-table
-        v-for="(ctr, i) in props.data"
+        v-for="(ctr, i) in props.data.map((squads) =>
+          squads.sort((a, b) => b.leader - a.leader || 0)
+        )"
         :key="i"
         :rows="ctr"
         :columns="columns"
@@ -164,6 +166,7 @@ const tacticalIconColor = (tactical) => {
   @include titleAuth-style;
   font-size: 2.5em;
   font-family: "Slackey";
+
   &.table-slotTop--list__chip {
     font-size: 1.6em;
   }
