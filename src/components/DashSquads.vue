@@ -22,7 +22,7 @@
                   :showCancelBttn="false"
                   :style="{ top: '110px', ['z-index']: '0' }"
                 >
-                  <template #buttons>
+                  <template #actions>
                     <q-checkbox
                       v-model="props.selected"
                       checked-icon="checklist"

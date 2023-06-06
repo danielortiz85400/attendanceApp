@@ -25,7 +25,7 @@
         ></v-img>
       </template>
       <v-app-bar-title><slot name="title"></slot> </v-app-bar-title>
-
+      <template #prepend><slot name="actions"></slot></template>
       <template #append v-if="showCancelBttn">
         <q-btn
           v-if="showCancelBttn"

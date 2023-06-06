@@ -5,6 +5,7 @@ export function useOnSocket() {
 
   const { socket } = useSocket();
 
+  // EMITS DE INICIALIZACIÓN
   const allPlayers = () => {
     socket.on("allSignupPlayers", (players) => {
       console.log("Datos players recibidos", players);
@@ -13,7 +14,6 @@ export function useOnSocket() {
       });
     });
   };
-
   const allconfirmPlayers = () => {
     socket.on("allconfirmPlayers", (players) => {
       console.log("Datos iniciales recibidos", players);
@@ -48,6 +48,7 @@ export function useOnSocket() {
     });
   };
 
+  // EMITS DE ARRANQUE
   const socketConnect = () => {
     socket.on("connect", () => {
       console.log("Conectado al servidor");
