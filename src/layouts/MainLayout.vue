@@ -4,6 +4,7 @@
       <router-view />
       <transition name="fade" mode="out-in">
         <q-footer v-if="showFooter" bordered class="bg-white text-primary">
+          {{ attNotify }}
           <q-toolbar>
             <q-page-sticky position="bottom" :offset="[0, -28]">
               <q-fab
@@ -57,9 +58,12 @@
 
 <script setup>
 const store = useAuth();
+const playerStore = usePlayers();
 const router = useRoute();
 
 const { authUser } = storeToRefs(store);
+const { attNotify } = storeToRefs(playerStore);
+
 const { logOut } = store;
 
 const showFooter = computed(() => Object.keys(authUser.value)?.length);

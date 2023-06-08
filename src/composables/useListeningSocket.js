@@ -30,14 +30,15 @@ export function useOnSocket() {
       });
     });
   };
-
-  // EMITS DE RUTAS (API)
-  const assisConfirmation = () => {
-    socket.on("assisConfirmation", (newPlayers) => {
-      console.log("Nuevo usuario recibido", newPlayers);
-      squadStore.$patch((state) => state.characters.push(newPlayers));
+  const allNotifications = () => {
+    socket.on("allNotifications", (notifications) => {
+      console.log("Notificaciones de confirmacion:", notifications);
+      playerStore.$patch((state) => {
+        state.attNotify = notifications;
+      });
     });
   };
+  // EMITS DE RUTAS (API)
 
   const userInit = () => {
     socket.on("userInit", (userUpdate) => {
@@ -47,7 +48,23 @@ export function useOnSocket() {
       });
     });
   };
-
+  const assisConfirmation = () => {
+    socket.on("assisConfirmation", (newPlayer) => {
+      console.log("Nuevo usuario recibido", newPlayer);
+      squadStore.$patch((state) => {
+        state.characters.push(newPlayer);
+      });
+      // playerStore.$patch((state) => {
+      //   state.attNotify.push(newPlayer) ;
+      // });
+    });
+  };
+  const attNotify = () => {
+    socket.on("attNotify", (notify) => {
+      console.log("attNotify", notify);
+      playerStore.$patch((state) => state.attNotify.push(notify));
+    });
+  };
   // EMITS DE ARRANQUE
   const socketConnect = () => {
     socket.on("connect", () => {
@@ -67,10 +84,14 @@ export function useOnSocket() {
     allPlayers,
     allconfirmPlayers,
     allSquads,
+    allNotifications,
+
+    userInit,
     assisConfirmation,
+    attNotify,
+
     disconnectSocket,
     socketConnect,
     socketAuth,
-    userInit,
   };
 }
