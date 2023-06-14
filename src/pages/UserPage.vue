@@ -158,7 +158,7 @@ const assistance = ref(null);
 onMounted(() => userInit());
 
 const stateAttendance = computed(() => {
-  return authUser.value?.player?.user[0].attendance === 1;
+  return authUser.value?.player?.user[0]?.attendance === 1;
 });
 
 const stateSquad = computed(() => {
