@@ -3,19 +3,19 @@
     <DashMenu @handle-panels="handleCurrentTab" />
   </div>
   <q-card
-    style="width: 450px; height: 63vh; border-radius: 12px"
+    style="width: 450px; height: 465px; border-radius: 12px"
     class="q-mt-sm overflow-hidden"
     id="target-toast"
   >
-    <q-card-section class="q-pa-sm">
+    <q-card-section>
       <q-tab-panels v-model="tab" class="bg-grey-1 rounded-borders text-center">
-        <q-tab-panel name="squads" class="q-pa-sm">
-          <q-layout
+        <q-tab-panel name="squads" class="q-pa-none">
+          <div
             v-if="squad?.length"
-            container
-            class="rounded"
-            style="height: 62vh"
+            style="height: 450px"
+            class="q-px-sm scroll"
           >
+            <!-- <q-layout  class="rounded" no-scroll> -->
             <TableSlot :data="squad">
               <template #section="{ props }">
                 <AppBar
@@ -55,15 +55,16 @@
                 </AppBar>
               </template>
             </TableSlot>
-            <q-page-scroller
+            <!-- <q-page-scroller
               position="bottom-right"
               :scroll-offset="150"
               :offset="[18, 18]"
               style="z-index: 10"
             >
               <q-btn fab icon="keyboard_arrow_up" glossy color="indigo-6" />
-            </q-page-scroller>
-          </q-layout>
+            </q-page-scroller> -->
+            <!-- </q-layout> -->
+          </div>
           <DashSquadsSkeleton v-else />
         </q-tab-panel>
 
@@ -114,5 +115,29 @@ watch(
 }
 .position-absolute {
   position: absolute !important;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  border-radius: 9px;
+  background-color: rgba(124, 148, 168, 0.2);
+  width: 7px;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-image: radial-gradient(
+    circle,
+    #3b4ca9,
+    #0086c3,
+    #3db3be,
+    #abd9c3,
+    #f9fdee
+  );
+  width: 5px;
+  background-size: 160% auto;
+  box-shadow: 0px 3px 7px 2px rgba(0, 0, 0, 0.3);
 }
 </style>

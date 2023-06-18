@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-center wrap q-mt-sm wrapper-gauges">
+  <div class="d-flex flex-center q-mt-sm wrapper-gauges">
     <q-btn
       push
       v-for="({ title, counter, icon }, i) in gauges"
