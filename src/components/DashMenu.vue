@@ -1,5 +1,5 @@
 <template>
-  <div class="navigation shadow-3 q-mt-lg">
+  <div class="navigation shadow-3" style="margin-top: 25px">
     <ul>
       <li
         v-for="({ icon, text, name }, i) in menu"
@@ -11,14 +11,16 @@
             ><q-icon
               class="cursor-pointer"
               :name="icon"
-              size="sm"
+              size="md"
+              style="text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.3)"
               @click="
                 () => {
                   (activeIndex = i), handleTabs(name);
                 }
               "
               :class="{ active: activeIndex === i }"
-          /></span>
+            ></q-icon
+          ></span>
           <span
             class="text"
             @click="
@@ -26,7 +28,7 @@
                 (activeIndex = i), handleTabs(name);
               }
             "
-            >{{ text }}</span
+            >{{ text }}<q-tooltip> {{ text }}</q-tooltip></span
           >
         </a>
       </li>
@@ -103,7 +105,7 @@ $clr: #fff;
         left: 28%;
         color: $clr;
         font-weight: bold;
-        font-size: 0.75em;
+        font-size: 0.9em;
         letter-spacing: 0.05em;
         cursor: pointer;
         transition: 0.4s;
@@ -114,13 +116,13 @@ $clr: #fff;
 
   .indicator {
     position: absolute;
-    top: -46%;
-    width: 70px;
-    height: 70px;
+    top: -45%;
+    width: 67px;
+    height: 67px;
     background-color: #3f50b4;
     border-radius: 50px;
     border: 6px solid $clr;
-    transition: 0.4s;
+    transition: 0.3s;
     &::before {
       content: "";
       position: absolute;
