@@ -208,7 +208,7 @@
 
 <script setup>
 import AttendenceSkeleton from "@/components/sekeltons/DashAttendence.skeleton.vue";
-import GroupsConfig from "@/components/DashSquads.config.vue";
+import CreateSquad from "@/components/CreateSquad.vue";
 import SearchEngine from "@/components/SearchEngine.vue";
 import AppBar from "@/slotComponents/AppBar.vue";
 
@@ -239,7 +239,7 @@ watch(
         value: nick,
       }));
       $q.dialog({
-        component: GroupsConfig,
+        component: CreateSquad,
         componentProps: {
           ctrToBeLeaders,
           squadOptions,

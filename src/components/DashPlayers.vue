@@ -54,28 +54,4 @@ const { allPlayers } = storeToRefs(players);
   font-size: 2.2em;
   font-family: "Slackey";
 }
-*::-webkit-scrollbar {
-  width: 10px;
-}
-
-*::-webkit-scrollbar-track {
-  border-radius: 9px;
-  background-color: rgba(124, 148, 168, 0.2);
-  width: 7px;
-}
-
-*::-webkit-scrollbar-thumb {
-  border-radius: 5px;
-  background-image: radial-gradient(
-    circle,
-    #3b4ca9,
-    #0086c3,
-    #3db3be,
-    #abd9c3,
-    #f9fdee
-  );
-  width: 5px;
-  background-size: 160% auto;
-  box-shadow: 0px 3px 7px 2px rgba(0, 0, 0, 0.3);
-}
 </style>

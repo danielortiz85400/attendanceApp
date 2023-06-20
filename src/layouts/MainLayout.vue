@@ -60,6 +60,7 @@
           class="shadow-6 q-ml-md"
         >
           <q-fab-action
+            v-if="showBtnsDash"
             color="indigo-6"
             glossy
             icon="person_add"
@@ -70,6 +71,7 @@
             @click="showPlayerSignup"
           />
           <q-fab-action
+            v-if="showBtnsDash"
             color="indigo-6"
             glossy
             icon=" manage_accounts"

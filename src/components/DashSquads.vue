@@ -16,7 +16,7 @@
             style="height: 450px"
             class="rounded"
           >
-            <TableSlot :data="squad">
+            <DataTable :data="squad">
               <template #section="{ props }">
                 <AppBar
                   :showCancelBttn="false"
@@ -54,7 +54,7 @@
                   </template>
                 </AppBar>
               </template>
-            </TableSlot>
+            </DataTable>
             <q-page-scroller
               position="bottom-right"
               :scroll-offset="150"
@@ -80,7 +80,7 @@
 <script setup>
 import DashSquadsSkeleton from "./sekeltons/DashSquads.skeleton.vue";
 import AppBar from "@/slotComponents/AppBar.vue";
-import TableSlot from "@/slotComponents/TableSlot.vue";
+import DataTable from "@/slotComponents/DataTable.vue";
 import DashMenu from "./DashMenu.vue";
 import { promiseSwal } from "@/utils/UsePromiseToast";
 
