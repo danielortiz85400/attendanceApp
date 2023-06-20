@@ -10,12 +10,12 @@
     <q-card-section>
       <q-tab-panels v-model="tab" class="bg-grey-1 rounded-borders text-center">
         <q-tab-panel name="squads" class="q-pa-none">
-          <div
+          <q-layout
+            container
             v-if="squad?.length"
             style="height: 450px"
-            class="q-px-sm scroll"
+            class="rounded"
           >
-            <!-- <q-layout  class="rounded" no-scroll> -->
             <TableSlot :data="squad">
               <template #section="{ props }">
                 <AppBar
@@ -55,20 +55,23 @@
                 </AppBar>
               </template>
             </TableSlot>
-            <!-- <q-page-scroller
+            <q-page-scroller
               position="bottom-right"
               :scroll-offset="150"
               :offset="[18, 18]"
               style="z-index: 10"
             >
               <q-btn fab icon="keyboard_arrow_up" glossy color="indigo-6" />
-            </q-page-scroller> -->
-            <!-- </q-layout> -->
-          </div>
+            </q-page-scroller>
+          </q-layout>
           <DashSquadsSkeleton v-else />
         </q-tab-panel>
 
-        <q-tab-panel name="players"> <DashPlayers /> </q-tab-panel>
+        <q-tab-panel name="players">
+          <q-layout container class="rounded" style="height: 400px"
+            ><DashPlayers
+          /></q-layout>
+        </q-tab-panel>
       </q-tab-panels>
     </q-card-section>
   </q-card>
@@ -115,29 +118,5 @@ watch(
 }
 .position-absolute {
   position: absolute !important;
-}
-*::-webkit-scrollbar {
-  width: 10px;
-}
-
-*::-webkit-scrollbar-track {
-  border-radius: 9px;
-  background-color: rgba(124, 148, 168, 0.2);
-  width: 7px;
-}
-
-*::-webkit-scrollbar-thumb {
-  border-radius: 5px;
-  background-image: radial-gradient(
-    circle,
-    #3b4ca9,
-    #0086c3,
-    #3db3be,
-    #abd9c3,
-    #f9fdee
-  );
-  width: 5px;
-  background-size: 160% auto;
-  box-shadow: 0px 3px 7px 2px rgba(0, 0, 0, 0.3);
 }
 </style>

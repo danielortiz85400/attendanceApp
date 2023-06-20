@@ -9,18 +9,9 @@
       </div>
     </div>
   </q-page>
-
-  <q-btn @click="showSignUp">SIGN UP</q-btn>
-  <q-btn @click="showPlayerSignup">PLAYER</q-btn>
 </template>
 
 <script setup>
-import { useQuasar } from "quasar";
-import signUp from "@/components/signUp.vue";
-import playerSignup from "@/components/PlayersSignup.vue";
-
-const $q = useQuasar();
-
 const {
   assisConfirmation,
   allNotifications,
@@ -34,31 +25,8 @@ onMounted(() => {
   allSquads();
   allconfirmPlayers();
   assisConfirmation();
-  allNotifications()
+  allNotifications();
   attNotify();
   allPlayers();
 });
-
-const showSignUp = () => {
-  $q.dialog({
-    component: signUp,
-  })
-    .onOk(() => {
-      console.log("OK");
-    })
-    .onCancel(() => {
-      console.log("Cancel");
-    });
-};
-const showPlayerSignup = () => {
-  $q.dialog({
-    component: playerSignup,
-  })
-    .onOk(() => {
-      console.log("OK");
-    })
-    .onCancel(() => {
-      console.log("Cancel");
-    });
-};
 </script>

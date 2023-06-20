@@ -62,13 +62,34 @@
           <q-fab-action
             color="indigo-6"
             glossy
+            icon="person_add"
+            label="Signup player"
+            external-label
+            label-class="bg-grey-3 text-grey-8"
+            label-position="left"
+            @click="showPlayerSignup"
+          />
+          <q-fab-action
+            color="indigo-6"
+            glossy
+            icon=" manage_accounts"
+            label="Signup adm"
+            external-label
+            label-class="bg-grey-3 text-grey-8"
+            label-position="left"
+            @click="showSignUp"
+          />
+          <q-fab-action
+            color="indigo-6"
+            glossy
             icon="exit_to_app"
             label="Salir"
             external-label
             label-class="bg-grey-3 text-grey-8"
             label-position="left"
             @click="logOut"
-        /></q-fab>
+          />
+        </q-fab>
       </q-toolbar>
     </q-header>
     <q-page-container>
@@ -78,9 +99,13 @@
 </template>
 
 <script setup>
+import signUp from "@/components/signUp.vue";
+import playerSignup from "@/components/PlayersSignup.vue";
+import { useQuasar } from "quasar";
+
+const $q = useQuasar();
 const store = useAuth();
 const playerStore = usePlayers();
-const router = useRoute();
 
 const { authUser } = storeToRefs(store);
 const { attNotify } = storeToRefs(playerStore);
@@ -93,6 +118,29 @@ const showHeader = computed(() => Object.keys(authUser.value)?.length);
 const showBtnsDash = computed(() =>
   ["ADMINISTRADOR", "MODERADOR"].includes(authUser.value?.user?.user_role)
 );
+
+const showSignUp = () => {
+  $q.dialog({
+    component: signUp,
+  })
+    .onOk(() => {
+      console.log("OK");
+    })
+    .onCancel(() => {
+      console.log("Cancel");
+    });
+};
+const showPlayerSignup = () => {
+  $q.dialog({
+    component: playerSignup,
+  })
+    .onOk(() => {
+      console.log("OK");
+    })
+    .onCancel(() => {
+      console.log("Cancel");
+    });
+};
 </script>
 
 <style scoped lang="scss">

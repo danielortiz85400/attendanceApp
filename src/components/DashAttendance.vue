@@ -1,6 +1,6 @@
 <template>
   <!--ATTENDENCE-->
-  <v-card width="300" height="653px" class="ma-2" style="border-radius: 12px">
+  <v-card width="300" height="655px" class="ma-2" style="border-radius: 12px">
     <transition
       appear
       enter-active-class="animated fadeIn"
