@@ -10,6 +10,11 @@
             <q-space />
           </q-card-section>
           <q-form
+            @submit.prevent="signUp(user)"
+            ref="form"
+            class="q-gutter-lg q-px-lg"
+          >
+            <!-- <q-form
             @submit="
               signUp(
                 user.email,
@@ -19,7 +24,7 @@
               )
             "
             class="q-gutter-lg q-px-lg"
-          >
+          > -->
             <q-input
               v-model.trim="user.email"
               label="E-mail"
@@ -201,10 +206,8 @@
 <script setup>
 import PasswordMeter from "vue-simple-password-meter";
 import AppBar from "@/slotComponents/AppBar.vue";
-
-const store = useAuth();
-const { submitting } = storeToRefs(store);
-const { signUp } = store;
+import { url } from "@/helpers/EndPoints";
+import { toast } from "@/utils/useToast";
 
 const { dialogRef, onDialogCancel } = useDialogPluginComponent();
 
@@ -214,6 +217,7 @@ const templateToggle = [
   { value: "USUARIO", slot: "USUARIO" },
 ];
 
+const form = ref(null);
 const persistent = ref(false);
 const strength = ref(null);
 const isPwd = ref(true);
@@ -223,6 +227,24 @@ const user = reactive({
   confirmPassword: "D@ni3lortiz",
   userRole: "USUARIO",
 });
+
+const signUp = (user) => {
+  form.value.validate().then(async (success) => {
+    if (success) {
+      const { result } = await useFetch(url.signUp, "POST", { ...user });
+      toast(result);
+
+      if (result?.success) {
+        setTimeout(() => {
+          Object.keys(user).forEach(
+            (key) => (user[key] = user[key] ? "" : user[key])
+          );
+          form.value.reset();
+        }, 2000);
+      }
+    }
+  });
+};
 
 const passwordSecurity = computed(() => {
   const { [strength.value]: status } = {

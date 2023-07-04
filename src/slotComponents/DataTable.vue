@@ -1,16 +1,12 @@
 <template>
   <div>
-    <transition-group
+    <transition
       appear
       enter-active-class="animated fadeIn"
       leave-active-class="animated fadeOut"
     >
       <q-table
-        v-for="(ctr, i) in props.data.map((squads) =>
-          squads.sort((a, b) => b.leader - a.leader || 0)
-        )"
-        :key="i"
-        :rows="ctr"
+        :rows="props.data"
         :columns="columns"
         row-key="nick"
         hide-bottom
@@ -40,20 +36,20 @@
                       push
                       round
                       glossy
-                      :color="tacticalIconColor(ctr[0]?.name_tactic)"
+                      :color="tacticalIconColor(props.data[0]?.name_tactic)"
                       class="q-pl-md no-pointer-events shadow-3"
                     >
                       <q-avatar size="26px">
                         <q-img
                           style="height: 23px; width: 23px; filter: invert(88%)"
-                          :src="`src/assets/${ctr[0]?.name_tactic}.svg`"
+                          :src="`src/assets/${props.data[0]?.name_tactic}.svg`"
                           spinner-color="white"
                           spinner-size="10px"
                         />
                       </q-avatar>
                     </q-btn>
 
-                    &nbsp;{{ ctr[0]?.name_tactic }}
+                    &nbsp;{{ props.data[0]?.name_tactic }}
                   </q-chip></q-item-label
                 >
                 <q-item-label caption class="no-pointer-events"
@@ -63,9 +59,7 @@
             </q-item>
           </q-list>
           <q-space />
-          <p class="table-slotTop__p no-pointer-events">
-            {{ i + 1 }}
-          </p>
+          <p class="table-slotTop__p no-pointer-events">#</p>
         </template>
         <template #body="props">
           <q-tr :props="props">
@@ -121,7 +115,7 @@
           </transition>
         </template>
       </q-table>
-    </transition-group>
+    </transition>
   </div>
 </template>
 

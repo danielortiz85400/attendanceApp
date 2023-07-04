@@ -1,6 +1,6 @@
 export const useAuthentication = (resp, self) => {
   const store = useAuth();
-
+  if (resp?.error) return;
   let { ...authUser } = resp.success;
 
   store.$patch((state) => {

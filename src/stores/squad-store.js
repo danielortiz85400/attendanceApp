@@ -1,6 +1,7 @@
 import { toast } from "@/utils/useToast";
 import { useFetch } from "@/composables/UseFetch";
 import { url } from "@/helpers/EndPoints";
+import { promiseSwal } from "@/utils/UsePromiseToast";
 
 export const useSquadStore = defineStore("groups", {
   state: () => ({
@@ -12,20 +13,22 @@ export const useSquadStore = defineStore("groups", {
   actions: {
     //CREATE SQUADS
     async createSquad(players) {
-      await useFetch(url.squad.create, "POST", players, (result) => {
-        toast(result);
+      const { result } = await useFetch(url.squad.create, "POST", {
+        ...players,
       });
+      toast(result);
     },
 
     //DELETE SQUAD
-    async deleteSquad(squadToDelete) {
-      const { result } = await useFetch(
-        url.squad.delete,
-        "DELETE",
-        squadToDelete
+    async deleteSquad(squad) {
+      await promiseSwal(
+        "Eliminar?",
+        "#target-toast",
+        useFetch.bind(null, url.squad.delete, "DELETE", {
+          ...squad,
+        })
       );
       this.squadToEliminate = [];
-      return { result };
     },
   },
 });

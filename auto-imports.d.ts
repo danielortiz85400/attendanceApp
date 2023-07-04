@@ -65,6 +65,7 @@ declare global {
   const useCssModule: typeof import('vue')['useCssModule']
   const useCssVars: typeof import('vue')['useCssVars']
   const useDialogPluginComponent: typeof import('quasar')['useDialogPluginComponent']
+  const useFetch: typeof import('@/composables/useFetch')['useFetch']
   const useFormChild: typeof import('quasar')['useFormChild']
   const useLink: typeof import('vue-router')['useLink']
   const useMeta: typeof import('quasar')['useMeta']

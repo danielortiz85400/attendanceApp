@@ -4,10 +4,7 @@
       <div class="login-card__title absolute-top no-pointer-events">
         Sign in
       </div>
-      <q-form
-        @submit="login(user.email, user.password)"
-        class="q-gutter-lg q-pa-lg q-pt-xl"
-      >
+      <q-form @submit="login(user)" class="q-gutter-lg q-pa-lg q-pt-xl">
         <q-input
           v-model="user.email"
           label="E-mail"
@@ -83,6 +80,7 @@
 
 <script setup>
 import RecoverPassword from "@/components/RecoverPassword.vue";
+import { url } from "../helpers/EndPoints";
 
 const { dialog } = useQuasar();
 const { login } = useAuth();
@@ -101,10 +99,7 @@ const user = reactive({
 
 (async () => {
   useAuth().$reset();
-  await fetch("http://localhost:4000/api/logout", {
-    method: "GET",
-    credentials: "include",
-  });
+  await useFetch(url.logout, "GET");
 })();
 </script>
 

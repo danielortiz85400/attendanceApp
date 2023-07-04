@@ -8,7 +8,13 @@
     id="target-toast"
   >
     <q-card-section>
-      <q-tab-panels v-model="tab" class="bg-grey-1 rounded-borders text-center">
+      <q-tab-panels
+        v-model="tab"
+        animated
+        transition-prev="jump-up"
+        transition-next="jump-down"
+        class="bg-grey-1 rounded-borders text-center"
+      >
         <q-tab-panel name="squads" class="q-pa-none">
           <q-layout
             container
@@ -16,12 +22,19 @@
             style="height: 450px"
             class="rounded"
           >
-            <DataTable :data="squad">
+            <DataTable
+              v-for="(ctr, i) in squad.map((squads) =>
+                squads.sort((a, b) => b.leader - a.leader || 0)
+              )"
+              :key="i"
+              :data="ctr"
+            >
               <template #section="{ props }">
                 <AppBar
                   :showCancelBttn="false"
                   :style="{ top: '110px', ['z-index']: '0' }"
                 >
+                  <!-- :disable="squadToEliminate?.length ? true : false" -->
                   <template #actions>
                     <q-checkbox
                       v-model="props.selected"
@@ -30,8 +43,7 @@
                       :keep-color="true"
                       :color="props.selected ? 'red' : 'white'"
                       size="md"
-                      :disable="squadToEliminate?.length ? true : false"
-                      @click.prevent="delSquadDialog(squadToEliminate)"
+                      @click.prevent="deleteSquad(squadToEliminate)"
                     />
                   </template>
                   <template #title>
@@ -82,22 +94,10 @@ import DashSquadsSkeleton from "./sekeltons/DashSquads.skeleton.vue";
 import AppBar from "@/slotComponents/AppBar.vue";
 import DataTable from "@/slotComponents/DataTable.vue";
 import DashMenu from "./DashMenu.vue";
-import { promiseSwal } from "@/utils/UsePromiseToast";
 
 const squadStore = useSquadStore();
 const { squad, squadToEliminate } = storeToRefs(squadStore);
 const { deleteSquad } = squadStore;
-
-const delSquadDialog = async (delSquad) => {
-  await promiseSwal(
-    "Eliminar?",
-    "#target-toast",
-    deleteSquad.bind(null, delSquad)
-  );
-  squadStore.$patch((state) => {
-    state.squadToEliminate = [];
-  });
-};
 
 const tab = ref("squads");
 const handleCurrentTab = (data) => (tab.value = data);

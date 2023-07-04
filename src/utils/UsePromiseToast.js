@@ -1,55 +1,53 @@
+import Swal from "sweetalert2";
 /**
- * Composable que muestra un toast (sweetAlert2) con confirmación.
- * @param{string} texto pregunta.
- * @param{string} posición del toast.
- * @param{string} función a ejecutar.
- * @param{string} parámetros de la función.
- * @returns {object} - value
- * @property { string } - mssg
- * @property { string } - status
+ * @param {string} text - Pregunta(?)
+ * @param {string} target - Posición del toast
+ * @param {Function} fn Función a ejecutar.
+ * @returns  Swal.fire (toast)
  */
 
-import Swal from "sweetalert2";
-
 export const promiseSwal = async (text, target, fn) => {
-  let resultResp = {};
   const matchOptions = {
+    toast: true,
     width: 260,
     target,
     customClass: {
       container: "position-absolute",
     },
-    toast: true,
     position: "bottom-right",
   };
 
-  return Swal.fire({
-    ...matchOptions,
-    icon: "question",
-    text,
-    showCancelButton: true,
-    showLoaderOnConfirm: true,
-    preConfirm: async () => {
-      try {
-        const { result } = await fn();
-        resultResp = result;
+  return new Promise((resolve, reject) => {
+    Swal.fire({
+      ...matchOptions,
+      icon: "question",
+      text,
+      showCancelButton: true,
+      showLoaderOnConfirm: true,
+      preConfirm: async () => {
+        try {
+          const { result } = await fn();
 
-        const { [result?.status]: optToast } = {
-          [200]: { icon: "success", text: result?.resp?.mssg },
-          [400]: { icon: "error", text: result?.resp?.mssg },
-          [422]: { icon: "error", text: result?.resp?.mssg },
-        };
+          const { [result?.status]: optToast } = {
+            [200]: { icon: "success", text: result?.resp?.mssg },
+            [400]: { icon: "error", text: result?.resp?.mssg },
+            [422]: { icon: "error", text: result?.resp?.mssg },
+          };
 
-        Swal.fire({
-          ...matchOptions,
-          ...optToast,
-          showConfirmButton: false,
-          timer: 4000,
-          timerProgressBar: true,
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    },
+          Swal.fire({
+            ...matchOptions,
+            ...optToast,
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+          });
+
+          resolve(result);
+        } catch (error) {
+          console.log(error);
+          reject(error);
+        }
+      },
+    });
   });
 };

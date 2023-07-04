@@ -23,7 +23,7 @@
               :done="step > 1"
               class="q-px-md"
             >
-              <q-form @submit.prevent="submitValidate" ref="forms" id="form1">
+              <q-form @submit.prevent="signupPlayers" ref="forms" id="form1">
                 <q-input
                   v-model="player.email"
                   label="Email de pj"
@@ -137,7 +137,7 @@
               id="form-target"
             >
               <q-form
-                @submit.prevent="submitValidate(player)"
+                @submit.prevent="signupPlayers(player)"
                 ref="forms"
                 id="form2"
               >
@@ -305,6 +305,7 @@
                   push
                   type="submit"
                   :form="step === 1 ? 'form1' : 'form2'"
+                  :loading="submitting"
                 />
                 <q-btn
                   v-if="step > 1"
@@ -334,6 +335,7 @@ const { dialogRef, onDialogCancel } = useDialogPluginComponent();
 
 // STEPPER AND FORMS
 const forms = ref(null);
+const submitting = ref(false);
 const step = ref(1);
 const stepper = ref(null);
 const player = reactive({
@@ -350,22 +352,24 @@ const player = reactive({
 // <<selects>>
 const optionsCtr = ref(["BM", "GM", "DM", "LE", "FM", "ELF", "SUMM"]);
 const optionsSvr = ref(["MASTER", "HEROES"]); //!! debe ser dinamico (del svr)
-const submitValidate = (player) => {
+const signupPlayers = (player) => {
   forms.value.validate().then(async (success) => {
     if (success && step.value === 2) {
-      const { value } = await promiseSwal(
+      submitting.value = true;
+      const result = await promiseSwal(
         "crear?",
         "#form-target",
-        useFetch.bind(null, url.player.create, "POST", player)
+        useFetch.bind(null, url.player.create, "POST", { ...player })
       );
-      if (value?.result?.status === 200) {
+      submitting.value = false;
+      if (result?.status === 200) {
         setTimeout(() => {
           Object.keys(player).forEach(
             (key) => (player[key] = player[key] ? "" : player[key])
           );
-          forms.value.resetValidation();
+          forms.value.reset();
           step.value = 1;
-        }, 4000);
+        }, 3000);
       }
     }
     stepper.value.next();

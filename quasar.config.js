@@ -106,6 +106,7 @@ module.exports = configure(function (/* ctx */) {
                 "@/utils/useAuth": ["useAuthentication"],
                 "@/composables/UseSocketIO": ["useSocket"],
                 "@/composables/useListeningSocket": ["useOnSocket"],
+                "@/composables/useFetch": ["useFetch"],
               },
             ],
             defaultExportByFilename: false,

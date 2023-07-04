@@ -103,7 +103,13 @@
         style="width: 400px; height: auto; border-radius: 12px"
       >
         <div v-if="authUser?.player?.squad[0]?.length">
-          <DataTable :data="authUser?.player?.squad">
+          <DataTable
+            v-for="(ctr, i) in authUser?.player?.squad.map((squads) =>
+              squads.sort((a, b) => b.leader - a.leader || 0)
+            )"
+            :key="i"
+            :data="ctr"
+          >
             <template #section="{ props }">
               <AppBar
                 :showCancelBttn="false"
@@ -168,12 +174,9 @@ watch(assistance, async (newAssis) => {
     await promiseSwal(
       "Cancelar?",
       "#target-toast",
-      useFetch.bind(
-        null,
-        url.player.cancelConfirmation,
-        "POST",
-        authUser.value?.player?.user[0]
-      )
+      useFetch.bind(null, url.player.cancelConfirmation, "POST", {
+        ...authUser.value?.player?.user[0],
+      })
     );
 
     assistance.value = null;
@@ -181,12 +184,9 @@ watch(assistance, async (newAssis) => {
     await promiseSwal(
       "Confirmar?",
       "#target-toast",
-      useFetch.bind(
-        null,
-        url.player.confirmation,
-        "POST",
-        authUser.value?.player?.user[0]
-      )
+      useFetch.bind(null, url.player.confirmation, "POST", {
+        ...authUser.value?.player?.user[0],
+      })
     );
     assistance.value = null;
   }

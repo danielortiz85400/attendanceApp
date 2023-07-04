@@ -10,7 +10,7 @@
           glossy
         >
           <q-badge color="green-13" floating>{{ attNotify.length }}</q-badge>
-          <q-menu persistent max-height="4000px">
+          <q-menu max-height="4000px">
             <q-list separator class="no-scroll" style="height: 400px">
               <div class="dropdown-title q-pa-lg">Notify</div>
               <q-separator spaced />

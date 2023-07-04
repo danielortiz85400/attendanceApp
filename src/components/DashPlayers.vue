@@ -11,7 +11,10 @@
       <q-item>
         <q-item-section>
           <q-item-label class="text-weight-bold"
-            ><q-chip square outline class="bg-indigo-5 text-white glossy"
+            ><q-chip
+              square
+              outline
+              class="no-pointer-events bg-indigo-5 text-white glossy"
               >{{ nick }}
             </q-chip>
           </q-item-label>
@@ -24,7 +27,9 @@
         </q-item-section>
 
         <q-item-section side top>
-          <q-item-label class="card-list__number">{{ i + 1 }}</q-item-label>
+          <q-item-label class="no-pointer-events card-list__number">{{
+            i + 1
+          }}</q-item-label>
 
           <q-icon
             name="assistant"
