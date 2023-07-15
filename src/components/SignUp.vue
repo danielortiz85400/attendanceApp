@@ -217,6 +217,7 @@ const templateToggle = [
   { value: "USUARIO", slot: "USUARIO" },
 ];
 
+const submitting = ref(false);
 const form = ref(null);
 const persistent = ref(false);
 const strength = ref(null);
@@ -231,9 +232,10 @@ const user = reactive({
 const signUp = (user) => {
   form.value.validate().then(async (success) => {
     if (success) {
+      submitting.value = true;
       const { result } = await useFetch(url.signUp, "POST", { ...user });
       toast(result);
-
+      submitting.value = false;
       if (result?.success) {
         setTimeout(() => {
           Object.keys(user).forEach(
