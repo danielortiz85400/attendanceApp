@@ -31,13 +31,10 @@
 
 ::-webkit-scrollbar-thumb {
   border-radius: 5px;
-  background-image: radial-gradient(
-    circle,
-    #3b4ca9,
-    #0086c3,
-    #3db3be,
-    #abd9c3,
-    #f9fdee
+  background: linear-gradient(
+    90deg,
+    hsla(235, 100%, 78%, 1) 0%,
+    hsla(222, 77%, 33%, 1) 100%
   );
   width: 5px;
   background-size: 160% auto;

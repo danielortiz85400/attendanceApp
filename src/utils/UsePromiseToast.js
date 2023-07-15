@@ -48,6 +48,8 @@ export const promiseSwal = async (text, target, fn) => {
           reject(error);
         }
       },
+    }).then((opt) => {
+      if (!opt.value) return resolve({ result: false });
     });
   });
 };

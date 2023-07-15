@@ -335,7 +335,6 @@ const { dialogRef, onDialogCancel } = useDialogPluginComponent();
 
 // STEPPER AND FORMS
 const forms = ref(null);
-const submitting = ref(false);
 const step = ref(1);
 const stepper = ref(null);
 const player = reactive({
@@ -352,16 +351,15 @@ const player = reactive({
 // <<selects>>
 const optionsCtr = ref(["BM", "GM", "DM", "LE", "FM", "ELF", "SUMM"]);
 const optionsSvr = ref(["MASTER", "HEROES"]); //!! debe ser dinamico (del svr)
+
 const signupPlayers = (player) => {
   forms.value.validate().then(async (success) => {
     if (success && step.value === 2) {
-      submitting.value = true;
       const result = await promiseSwal(
         "crear?",
         "#form-target",
         useFetch.bind(null, url.player.create, "POST", { ...player })
       );
-      submitting.value = false;
       if (result?.status === 200) {
         setTimeout(() => {
           Object.keys(player).forEach(

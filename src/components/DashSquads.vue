@@ -22,51 +22,60 @@
             style="height: 450px"
             class="rounded"
           >
-            <DataTable
-              v-for="(ctr, i) in squad.map((squads) =>
-                squads.sort((a, b) => b.leader - a.leader || 0)
-              )"
-              :key="i"
-              :data="ctr"
+            <transition-group
+              appear
+              enter-active-class="animated fadeIn"
+              leave-active-class="animated fadeOut"
             >
-              <template #section="{ props }">
-                <AppBar
-                  :showCancelBttn="false"
-                  :style="{ top: '110px', ['z-index']: '0' }"
-                >
-                  <!-- :disable="squadToEliminate?.length ? true : false" -->
-                  <template #actions>
-                    <q-checkbox
-                      v-model="props.selected"
-                      checked-icon="checklist"
-                      unchecked-icon="delete_sweep"
-                      :keep-color="true"
-                      :color="props.selected ? 'red' : 'white'"
-                      size="md"
-                      @click.prevent="deleteSquad(squadToEliminate)"
-                    />
-                  </template>
-                  <template #title>
-                    <q-tr class="flex justify-around">
-                      <q-th
-                        v-for="col in props.cols"
-                        :key="col.name"
-                        :props="props"
+              <DataTable
+                v-for="(ctr, i) in squad.map((squads) =>
+                  squads.sort((a, b) => b.leader - a.leader || 0)
+                )"
+                :key="i"
+                :data="ctr"
+              >
+                <template #section="{ props }">
+                  <AppBar
+                    :showCancelBttn="false"
+                    :style="{ top: '110px', ['z-index']: '0' }"
+                  >
+                    <!-- :disable="squadToEliminate?.length ? true : false" -->
+                    <template #actions>
+                      <q-checkbox
+                        size="md"
+                        v-model="props.selected"
+                        checked-icon="checklist"
+                        unchecked-icon="delete_sweep"
+                        :keep-color="true"
+                        :color="props.selected ? 'red' : 'white'"
+                        :disable="squadToEliminate?.length > 0"
+                        ><q-tooltip v-if="props.selected" class="bg-red-5">{{
+                          "Marcado a eliminar"
+                        }}</q-tooltip></q-checkbox
                       >
-                        <q-chip
-                          outline
-                          color="teal-4"
-                          square
-                          class="glossy shadow-4 no-pointer-events q-pa-md text-white"
+                    </template>
+                    <template #title>
+                      <q-tr class="flex justify-around">
+                        <q-th
+                          v-for="col in props.cols"
+                          :key="col.name"
+                          :props="props"
                         >
-                          {{ col.label }}</q-chip
-                        >
-                      </q-th>
-                    </q-tr>
-                  </template>
-                </AppBar>
-              </template>
-            </DataTable>
+                          <q-chip
+                            outline
+                            color="teal-4"
+                            square
+                            class="glossy shadow-4 no-pointer-events q-pa-md text-white"
+                          >
+                            {{ col.label }}</q-chip
+                          >
+                        </q-th>
+                      </q-tr>
+                    </template>
+                  </AppBar>
+                </template>
+              </DataTable>
+            </transition-group>
             <q-page-scroller
               position="bottom-right"
               :scroll-offset="150"
@@ -107,6 +116,8 @@ watch(
   (length) => {
     if (length > 5) {
       squadToEliminate.value.splice(-5);
+    } else if (length === 5) {
+      deleteSquad(squadToEliminate.value);
     }
   }
 );
