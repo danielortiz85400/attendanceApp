@@ -39,7 +39,6 @@
                     :showCancelBttn="false"
                     :style="{ top: '110px', ['z-index']: '0' }"
                   >
-                    <!-- :disable="squadToEliminate?.length ? true : false" -->
                     <template #actions>
                       <q-checkbox
                         size="md"
@@ -74,6 +73,7 @@
                     </template>
                   </AppBar>
                 </template>
+                <template #party>{{ ctr[0].id_squad.slice(-4) }}</template>
               </DataTable>
             </transition-group>
             <q-page-scroller

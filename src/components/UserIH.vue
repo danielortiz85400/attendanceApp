@@ -39,7 +39,7 @@
           height="260px"
           style="border-radius: 10px"
         >
-          <app-bar :showCancelBttn="false">
+          <AppBar :showCancelBttn="false">
             <template #mainContent>
               <div class="card-appbar__title q-mt-sm">PLAYER</div>
               <q-list
@@ -73,7 +73,7 @@
                 </q-item>
               </q-list>
             </template>
-          </app-bar>
+          </AppBar>
         </v-card>
 
         <!-- ASISTENCIA -->
@@ -100,7 +100,12 @@
       <q-card
         class="no-shadow"
         id="target-toast"
-        style="width: 400px; height: auto; border-radius: 12px"
+        style="
+          width: 450px;
+          max-width: 430px;
+          height: auto;
+          border-radius: 12px;
+        "
       >
         <div v-if="authUser?.player?.squad[0]?.length">
           <DataTable
@@ -137,6 +142,7 @@
                 </template>
               </AppBar>
             </template>
+            <template #party>{{ ctr[0].id_squad.slice(-4) }}</template>
           </DataTable>
         </div>
         <UserSkeleton v-else />

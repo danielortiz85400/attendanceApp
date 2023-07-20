@@ -52,14 +52,30 @@
                     &nbsp;{{ props.data[0]?.name_tactic }}
                   </q-chip></q-item-label
                 >
-                <q-item-label caption class="no-pointer-events"
-                  >Táctica
+                <q-item-label
+                  caption
+                  class="no-pointer-events text-left q-pl-sm"
+                >
+                  <q-badge
+                    outline
+                    :color="tacticalIconColor(props.data[0]?.name_tactic)"
+                    label="Táctica"
+                  />
                 </q-item-label>
               </q-item-section>
             </q-item>
           </q-list>
           <q-space />
-          <p class="table-slotTop__p no-pointer-events">#</p>
+          <q-item class="no-pointer-events">
+            <q-item-section>
+              <q-item-label caption class="text-center">
+                <q-badge outline color="orange" label="Party"
+              /></q-item-label>
+              <q-item-label class="table-slotTop__p no-pointer-events"
+                ><slot name="party"></slot
+              ></q-item-label>
+            </q-item-section>
+          </q-item>
         </template>
         <template #body="props">
           <q-tr :props="props">
@@ -158,7 +174,7 @@ const tacticalIconColor = (tactical) => {
 .table-slotTop__p,
 .table-slotTop--list__chip {
   @include titleAuth-style;
-  font-size: 2.5em;
+  font-size: 2em;
   font-family: "Slackey";
 
   &.table-slotTop--list__chip {
