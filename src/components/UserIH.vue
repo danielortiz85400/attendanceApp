@@ -12,6 +12,7 @@
         <q-card class="column flex-center no-shadow">
           <q-btn v-if="!stateSquad" class="no-pointer-events" push>
             <q-chip
+              class="text-weight-bold"
               square
               color="grey-1"
               :text-color="stateAttendance === true ? 'green-13' : 'red-5'"
@@ -22,11 +23,11 @@
           </q-btn>
           <q-btn v-if="stateSquad" class="no-pointer-events" push>
             <q-chip
+              class="text-weight-bold"
               size="md"
               square
               color="grey-1"
               :text-color="stateSquad ? 'green-13' : 'red-5'"
-              icon-right="star"
             >
               {{ stateSquad ? "En grupo " : "Sin grupo aún" }}
             </q-chip>
@@ -34,57 +35,104 @@
         </q-card>
         <!-- INFORMACIÓN DE JUGADOR -->
         <v-card
-          class="ma-2 no-pointer-events elevation-2"
+          class="ma-4 no-pointer-events elevation-2"
           width="230"
-          height="260px"
+          height="400px"
           style="border-radius: 10px"
         >
           <AppBar :showCancelBttn="false">
             <template #mainContent>
               <div class="card-appbar__title q-mt-sm">PLAYER</div>
-              <q-list
-                v-for="({ nick, name, ctr, phone, name_server }, i) in authUser
-                  ?.player?.user"
-                :key="i"
-              >
-                <q-item>
-                  <q-item-section class="text-center text-center">
-                    <q-item-label class="text-weight-bold">
-                      <q-chip
-                        outline
-                        square
-                        color="white"
-                        class="bg-indigo-4 glossy"
+              <div class="flex flex-start items-center">
+                <v-timeline side="end">
+                  <v-timeline-item
+                    v-for="({ nick, ctr, phone, name_server }, i) in authUser
+                      ?.player?.user"
+                    :key="i"
+                    dot-color="indigo"
+                    fill-dot
+                  >
+                    <template #icon>
+                      <q-btn
+                        round
+                        icon="mdi-card-account-details-star"
+                        class="glossy shadow-4 no-pointer-events red"
                       >
-                        {{ nick }}
-                      </q-chip>
-                    </q-item-label>
-                    <q-item-label caption class="text-capitalize"
-                      >Nombre: {{ name }}</q-item-label
-                    >
-                    <q-item-label caption
-                      >Clase personaje: {{ ctr }}</q-item-label
-                    >
-                    <q-item-label caption
-                      >Server actual: {{ name_server }}</q-item-label
-                    >
-                    <q-item-label caption>Tel: {{ phone }}</q-item-label>
-                  </q-item-section>
-                </q-item>
-              </q-list>
+                      </q-btn>
+                    </template>
+                    <q-item>
+                      <q-item-section>
+                        <q-item-label
+                          class="text-uppercase text-weight-medium card-player__titles"
+                        >
+                          <q-badge
+                            outline
+                            color="blue-grey-5"
+                            class="shadow-2"
+                            label="Nick"
+                        /></q-item-label>
+                        <q-item-label caption> {{ nick }}</q-item-label>
+                      </q-item-section>
+                    </q-item>
+                    <q-item>
+                      <q-item-section>
+                        <q-item-label
+                          class="text-uppercase text-weight-medium card-player__titles"
+                          ><q-badge
+                            outline
+                            color="blue-grey-5"
+                            class="shadow-2"
+                            label="Clase"
+                        /></q-item-label>
+                        <q-item-label caption> {{ ctr }}</q-item-label>
+                      </q-item-section>
+                    </q-item>
+                    <q-item>
+                      <q-item-section>
+                        <q-item-label
+                          class="text-uppercase text-weight-medium card-player__titles"
+                          ><q-badge
+                            outline
+                            color="blue-grey-5"
+                            class="shadow-2"
+                            label="Teléf"
+                        /></q-item-label>
+                        <q-item-label caption> {{ phone }}</q-item-label>
+                      </q-item-section>
+                    </q-item>
+                    <q-item>
+                      <q-item-section>
+                        <q-item-label
+                          class="text-uppercase text-weight-medium card-player__titles"
+                          ><q-badge
+                            outline
+                            color="blue-grey-5"
+                            class="shadow-2"
+                            label="Server"
+                        /></q-item-label>
+                        <q-item-label caption> {{ name_server }}</q-item-label>
+                      </q-item-section>
+                    </q-item>
+                  </v-timeline-item>
+                </v-timeline>
+              </div>
             </template>
           </AppBar>
         </v-card>
 
         <!-- ASISTENCIA -->
-        <v-card
+        <q-card
           class="text-center pt-4 elevation-2"
           style="border-radius: 12px; line-height: 1.2; width: 230px"
         >
           <p class="card-appbar__title q-ma-none no-pointer-events">ASISTIR</p>
-          <p class="text-caption text-bold">
-            <q-item-label caption
-              >Castle siege:
+          <p class="text-bold">
+            <q-item-label
+              ><q-badge
+                outline
+                color="blue-grey-5"
+                class="no-pointer-events text-uppercase shadow-2 card-player__titles"
+                label="Castle siege:" />
               <q-toggle
                 toggle-indeterminate
                 v-model="assistance"
@@ -93,16 +141,16 @@
                 size="lg"
             /></q-item-label>
           </p>
-        </v-card>
+        </q-card>
       </q-card>
 
       <!-- GRUPO/SQUAD -->
       <q-card
-        class="no-shadow"
+        class="no-shadow q-py-md card-squad"
         id="target-toast"
         style="
           width: 450px;
-          max-width: 430px;
+          max-width: 410px;
           height: auto;
           border-radius: 12px;
         "
@@ -198,3 +246,35 @@ watch(assistance, async (newAssis) => {
   }
 });
 </script>
+
+<style scoped lang="scss">
+@import url("https://fonts.googleapis.com/css2?family=Slackey&display=swap");
+.card-player__titles {
+  color: rgba(0, 0, 0, 0.6);
+  font-family: "Slackey", cursive;
+  -webkit-text-stroke: 0.6px rgba(36, 48, 132, 0.4);
+}
+
+.card-squad::before {
+  content: "";
+  position: absolute;
+  height: 90%;
+  width: 95%;
+  left: 33%;
+  top: 5%;
+  margin-left: -30%;
+  background: linear-gradient(
+    45deg,
+    #fb0094,
+    #0000ff,
+    #00ff00,
+    #ffff00,
+    #fb0094,
+    #0000ff,
+    #00ff00
+  );
+  background-size: 250%;
+  filter: blur(14px);
+  opacity: 0.3;
+}
+</style>

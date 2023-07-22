@@ -1,9 +1,9 @@
 <template>
   <div class="q-pa-md">
-    <span
+    <span class="flex flex-center"
       ><q-btn push :ripple="false" class="shadow-3 text-indigo-5">
         <q-icon left size="2em" name="info" />
-        <div>Sin grupos</div>
+        <div>Sin grupo/s</div>
       </q-btn></span
     >
     <div class="text-caption">
