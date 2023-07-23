@@ -8,5 +8,6 @@
   "[vue]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "vue.features.codeActions.enable": false
+  "vue.features.codeActions.enable": false,
+  "vue.codeActions.enabled": false
 }

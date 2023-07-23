@@ -1,6 +1,11 @@
 <template>
   <!--ATTENDENCE-->
-  <v-card width="300" height="655px" class="ma-2" style="border-radius: 12px">
+  <v-card
+    width="300"
+    height="655px"
+    class="ma-2 card-attendance"
+    style="border-radius: 12px"
+  >
     <transition
       appear
       enter-active-class="animated fadeIn"
@@ -108,14 +113,22 @@
                                 :disabled="ctrChoise.length === 5"
                               >
                                 <v-card
-                                  class="text-grey-8 no-box-shadow"
-                                  :title="ctr.nick"
+                                  class="text-grey-8 no-box-shadow btn-card__title"
                                   :subtitle="ctr.ctr"
                                   :color="isSelected ? 'indigo-1' : ''"
                                   width="11em"
                                   height="5em"
                                   @click="ctrSelect(ctr)"
+                                  ><template v-slot:title>
+                                    <q-badge
+                                      style="font-size: 15px"
+                                      class="shadow-2 text-lowercase q-pa-xs"
+                                      outline
+                                      color="blue-grey-4"
+                                      :label="ctr.nick"
+                                    /> </template
                                 ></v-card>
+
                                 <q-badge
                                   color="transparent"
                                   transparent
@@ -269,6 +282,7 @@ const ctrSelect = (ctr) => {
 </script>
 
 <style scoped lang="scss">
+@import url("https://fonts.googleapis.com/css2?family=Days+One&family=Gochi+Hand&display=swap");
 .card-chip__text {
   @include titleAuth-style;
   font-size: 1em;
@@ -279,5 +293,8 @@ const ctrSelect = (ctr) => {
   box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
     0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
     0 22.3px 17.9px rgba(0, 0, 0, 0.072);
+}
+.btn-card__title {
+  font-family: "Days One", sans-serif;
 }
 </style>

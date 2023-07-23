@@ -40,8 +40,8 @@
 <script setup>
 const activeIndex = ref(0);
 const menu = ref([
-  { icon: "groups_3", text: "Groups", name: "squads" },
-  { icon: "recent_actors", text: "Players", name: "players" },
+  { icon: "mdi-account-group-outline", text: "Groups", name: "squads" },
+  { icon: "mdi-badge-account", text: "Players", name: "players" },
 ]);
 
 const emits = defineEmits(["handle-panels"]);

@@ -13,10 +13,14 @@
         <div class="col-6">
           <q-icon :name="icon" size="md" />
         </div>
-        <div
-          class="col-12 text-subtitle1 text-left q-pl-sm q-pt-sm gauges-title"
-        >
-          {{ title }}
+        <div class="col-12 q-pl-sm q-pt-sm gauges-title">
+          <q-badge
+            style="font-size: 14px"
+            class="shadow-3 glossy"
+            outline
+            color="blue-grey-5"
+            :label="title"
+          />
         </div>
       </div>
     </q-btn>
@@ -39,7 +43,7 @@ watchEffect(() => {
     {
       title: "Groups",
       counter: Object.keys(squad.value).length,
-      icon: "groups_3",
+      icon: "mdi-account-group-outline",
     },
   ];
 });
@@ -47,6 +51,7 @@ watchEffect(() => {
 
 <style scoped lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Slackey&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Days+One&family=Gochi+Hand&display=swap");
 
 .wrapper-gauges {
   width: 450px;
@@ -67,6 +72,7 @@ watchEffect(() => {
     text-shadow: none;
     color: rgba(0, 0, 0, 0.5);
     font-weight: bolder;
+    font-family: "Days One", sans-serif;
   }
 }
 </style>

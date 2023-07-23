@@ -9,14 +9,15 @@
   >
     <q-list>
       <q-item>
-        <q-item-section>
-          <q-item-label class="text-weight-bold"
-            ><q-chip
-              square
+        <q-item-section class="no-pointer-events">
+          <q-item-label class="text-weight-bold">
+            <q-badge
+              class="shadow-3 glossy q-pa-sm text-lowercase card-list__title"
+              style="font-size: 14px"
               outline
-              class="no-pointer-events bg-indigo-5 text-white glossy"
-              >{{ nick }}
-            </q-chip>
+              color="indigo"
+              :label="nick"
+            />
           </q-item-label>
           <q-item-label caption class="text-capitalize"
             >Nombre: {{ name }}</q-item-label
@@ -35,6 +36,7 @@
             name="assistant"
             :color="attendance === 1 ? 'light-green-13' : 'red'"
             class="q-mt-sm"
+            style="text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2)"
           >
             <q-tooltip anchor="bottom middle" self="top middle">
               {{ attendance === 1 ? "Confirmado" : "Sin confirmar" }}
@@ -53,10 +55,14 @@ const { allPlayers } = storeToRefs(players);
 
 <style scoped lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Slackey&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Days+One&family=Gochi+Hand&display=swap");
 
 .card-list__number {
   @include titleAuth-style;
   font-size: 2.2em;
   font-family: "Slackey";
+}
+.card-list__title {
+  font-family: "Days One", sans-serif;
 }
 </style>

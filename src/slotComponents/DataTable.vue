@@ -15,7 +15,7 @@
         bordered
         table-header-style="background-color:rgba(0,0,0,0.1);"
         table-header-class="glossy text-white"
-        class="text-grey-8 q-ma-sm"
+        class="text-grey-8 q-ma-sm table-text"
         style="border: 1px solid #fff; border-radius: 13px"
       >
         <template #header="props">
@@ -57,6 +57,8 @@
                   class="no-pointer-events text-left q-pl-sm"
                 >
                   <q-badge
+                    style="font-size: 14px"
+                    class="shadow-3 glossy"
                     outline
                     :color="tacticalIconColor(props.data[0]?.name_tactic)"
                     label="Táctica"
@@ -69,8 +71,14 @@
           <q-item class="no-pointer-events">
             <q-item-section>
               <q-item-label caption class="text-center">
-                <q-badge outline color="orange" label="Party"
-              /></q-item-label>
+                <q-badge
+                  outline
+                  class="shadow-3 glossy"
+                  color="orange"
+                  label="Party"
+                >
+                </q-badge
+              ></q-item-label>
               <q-item-label class="table-slotTop__p no-pointer-events"
                 ><slot name="party"></slot
               ></q-item-label>
@@ -99,7 +107,7 @@
                 :ripple="false"
                 :flat="props.row.leader !== 1"
                 :label="props.value"
-                class="no-pointer-events"
+                class="no-pointer-events rounded"
               >
                 {{ value }}
                 <q-badge
