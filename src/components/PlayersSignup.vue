@@ -332,6 +332,8 @@ import { url } from "@/helpers/EndPoints";
 import { useFetch } from "@/composables/UseFetch";
 
 const { dialogRef, onDialogCancel } = useDialogPluginComponent();
+const serverStore = useServers()
+const { servers } = storeToRefs(serverStore)
 
 // STEPPER AND FORMS
 const forms = ref(null);
@@ -350,7 +352,8 @@ const player = reactive({
 
 // <<selects>>
 const optionsCtr = ref(["BM", "GM", "DM", "LE", "FM", "ELF", "SUMM"]);
-const optionsSvr = ref(["MASTER", "HEROES"]); //!! debe ser dinamico (del svr)
+const optionsSvr = computed(()=> servers.value.map(({name})=> name))
+
 
 const signupPlayers = (player) => {
   forms.value.validate().then(async (success) => {

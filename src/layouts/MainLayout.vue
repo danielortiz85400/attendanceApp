@@ -81,6 +81,17 @@
             label-position="left"
             @click="showSignUp"
           />
+           <q-fab-action
+            v-if="showBtnsDash"
+            color="indigo-6"
+            glossy
+            icon=" manage_accounts"
+            label="Servers"
+            external-label
+            label-class="bg-grey-3 text-grey-8"
+            label-position="left"
+            @click="showServers"
+          />
           <q-fab-action
             color="indigo-6"
             glossy
@@ -103,6 +114,8 @@
 <script setup>
 import signUp from "@/components/signUp.vue";
 import playerSignup from "@/components/PlayersSignup.vue";
+import DashServers from "@/components/DashServers.vue";
+
 import { useQuasar } from "quasar";
 
 const $q = useQuasar();
@@ -135,6 +148,17 @@ const showSignUp = () => {
 const showPlayerSignup = () => {
   $q.dialog({
     component: playerSignup,
+  })
+    .onOk(() => {
+      console.log("OK");
+    })
+    .onCancel(() => {
+      console.log("Cancel");
+    });
+};
+const showServers = () => {
+  $q.dialog({
+    component: DashServers,
   })
     .onOk(() => {
       console.log("OK");

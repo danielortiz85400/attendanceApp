@@ -14,4 +14,8 @@ export const url = {
     confirmation: "http://localhost:4000/api/players/confirmation",
     cancelConfirmation: "http://localhost:4000/api/players/cancelConfirmation",
   },
+  server:{
+    create:"http://localhost:4000/api/servers/createServer",
+    delete:"http://localhost:4000/api/servers/removeServer"
+  }
 };

@@ -74,6 +74,7 @@ declare global {
   const useQuasar: typeof import('quasar')['useQuasar']
   const useRoute: typeof import('vue-router')['useRoute']
   const useRouter: typeof import('vue-router')['useRouter']
+  const useServers: typeof import('@/stores/servers-store')['useServers']
   const useSlots: typeof import('vue')['useSlots']
   const useSocket: typeof import('@/composables/UseSocketIO')['useSocket']
   const useSquadStore: typeof import('@/stores/squad-store')['useSquadStore']

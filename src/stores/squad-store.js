@@ -19,7 +19,7 @@ export const useSquadStore = defineStore("groups", {
       toast(result);
     },
 
-    //DELETE SQUAD
+    //DISARM  SQUAD
     async deleteSquad(squad) {
       await promiseSwal(
         "Eliminar?",

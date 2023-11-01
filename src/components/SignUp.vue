@@ -14,17 +14,6 @@
             ref="form"
             class="q-gutter-lg q-px-lg"
           >
-            <!-- <q-form
-            @submit="
-              signUp(
-                user.email,
-                user.password,
-                user.confirmPassword,
-                user.userRole
-              )
-            "
-            class="q-gutter-lg q-px-lg"
-          > -->
             <q-input
               v-model.trim="user.email"
               label="E-mail"

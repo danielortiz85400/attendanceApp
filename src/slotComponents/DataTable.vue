@@ -15,7 +15,7 @@
         bordered
         table-header-style="background-color:rgba(0,0,0,0.1);"
         table-header-class="glossy text-white"
-        class="text-grey-8 q-ma-sm table-text"
+        class="text-grey-8 q-ma-sm"
         style="border: 1px solid #fff; border-radius: 13px"
       >
         <template #header="props">
@@ -107,7 +107,7 @@
                 :ripple="false"
                 :flat="props.row.leader !== 1"
                 :label="props.value"
-                class="no-pointer-events rounded"
+                class="no-pointer-events rounded text-grey-6 font-days"
               >
                 {{ value }}
                 <q-badge
@@ -128,11 +128,12 @@
           >
             <q-tr v-show="props.expand" :props="props">
               <q-td colspan="100%">
-                <div class="text-left flex">
+                <div class="flex flex-center font-days">
                   Nombre de jugador:
-                  <p class="text-capitalize q-ml-xs">
-                    {{ props.row.name }}
-                  </p>
+                  {{
+                    props.row.name.charAt(0).toUpperCase() +
+                    props.row.name.slice(1)
+                  }}
                 </div>
               </q-td>
             </q-tr>
@@ -178,6 +179,8 @@ const tacticalIconColor = (tactical) => {
 };
 </script>
 <style lang="scss">
+@import url("https://fonts.googleapis.com/css2?family=Days+One&family=Gochi+Hand&display=swap");
+
 .card-appbar__title,
 .table-slotTop__p,
 .table-slotTop--list__chip {
@@ -191,5 +194,10 @@ const tacticalIconColor = (tactical) => {
   &.card-appbar__title {
     font-size: 1.6em;
   }
+}
+
+.font-days {
+  font-family: "Days One", sans-serif;
+  font-size: 12px;
 }
 </style>

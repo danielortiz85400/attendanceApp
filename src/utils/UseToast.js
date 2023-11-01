@@ -25,6 +25,6 @@ export const toast = (resp) => {
       toast.addEventListener("mouseleave", Swal.resumeTimer);
     },
   });
-
+  
   Toast.fire(optToast);
 };

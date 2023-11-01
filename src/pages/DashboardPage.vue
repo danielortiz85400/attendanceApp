@@ -19,6 +19,7 @@ const {
   allconfirmPlayers,
   allSquads,
   allPlayers,
+  allServers
 } = useOnSocket();
 
 onMounted(() => {
@@ -28,5 +29,6 @@ onMounted(() => {
   allNotifications();
   attNotify();
   allPlayers();
+  allServers()
 });
 </script>

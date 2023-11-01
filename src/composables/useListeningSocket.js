@@ -2,6 +2,7 @@ export function useOnSocket() {
   const squadStore = useSquadStore();
   const playerStore = usePlayers();
   const authStore = useAuth();
+  const serverStore = useServers()
 
   const { socket } = useSocket();
 
@@ -30,6 +31,14 @@ export function useOnSocket() {
       });
     });
   };
+  const allServers = () => {
+    socket.on("allServers", (servers) => {
+      console.log("Servidores actuales:", servers);
+      serverStore.$patch((state) => {
+        state.servers = servers;
+      });
+    });
+  };
   const allNotifications = () => {
     socket.on("allNotifications", (notifications) => {
       console.log("Notificaciones de confirmacion:", notifications);
@@ -38,8 +47,8 @@ export function useOnSocket() {
       });
     });
   };
-  // EMITS DE RUTAS (API)
 
+  // EMITS DE RUTAS (API)
   const userInit = () => {
     socket.on("userInit", (userUpdate) => {
       console.log("Confirmacion actualizada", userUpdate);
@@ -54,9 +63,6 @@ export function useOnSocket() {
       squadStore.$patch((state) => {
         state.characters.push(newPlayer);
       });
-      // playerStore.$patch((state) => {
-      //   state.attNotify.push(newPlayer) ;
-      // });
     });
   };
   const attNotify = () => {
@@ -84,6 +90,7 @@ export function useOnSocket() {
     allPlayers,
     allconfirmPlayers,
     allSquads,
+    allServers,
     allNotifications,
 
     userInit,
